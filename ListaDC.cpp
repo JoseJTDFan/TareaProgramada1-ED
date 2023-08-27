@@ -232,3 +232,32 @@ void listaDC::Mostrar()
      cout<<endl;
      cout<<primero->anterior->valor<<"->";*/
 }   
+
+void listaDC::leerPasillo(listaDC &L2,lista &L1, string nombre){
+	//Lee el archivo con los pasillos, los mete a una lista y luego lo carga a una lista doble circular con los datos correctos
+  	string linea;
+	ifstream archivo(nombre.c_str());
+	
+	while (!archivo.eof()) { //Cada line del archivo se mete a una lista simple
+		getline(archivo, linea);
+		L1.InsertarFinal(linea);}
+    pnodoL aux=primero; //se crea un nodo en primero de la lista simple
+    while(aux!=NULL){ 
+		bool flag=true;
+    	int temp =aux->valor.length(); //Crea un temp con la cantidad de caracteres que tenga cada linea del nodo
+    	string num = "";
+    	string nombre = "";
+    	string tempNom=aux->valor; //Un temp que tiene la linea
+    	for (int i = 0; i < temp; i++){ //Se hace un while con un contador mientras sea menor al temp
+    		if (tempNom[i]!=';'){ //Hasta que no se encuentre un ; va a ingresar los caracteres a la variable num
+    			if (flag==true){
+    				num+=aux->valor[i];}
+				else{
+					nombre+=aux->valor[i];}}
+			else{//Si se encuentra un ;, cambia la bandera a false y se lo salta
+				flag=false;}
+		}
+		if (L2.verificar(stoi(num))==false){//Se verifica que el numero de pasillo no este ya ingresado en la lista
+			L2.InsertarFinal(stoi(num), nombre);} //Si no se encontraba lo ingresa en la lista
+		aux= aux->siguiente;}
+	L1.~lista();}

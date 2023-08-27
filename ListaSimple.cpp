@@ -620,3 +620,5 @@ void lista::mezclar (int num1, int num2) {
 	listatemp2.Mostrar();
 }
 
+
+

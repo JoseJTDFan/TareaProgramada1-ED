@@ -5,6 +5,11 @@
 #pragma once
 #include "NodoDC.h"
 #include <iostream>
+#include <fstream>
+#include <string>
+#include "ListaSimple.h"
+
+
 using namespace std;
 
 
@@ -25,6 +30,9 @@ class listaDC {
     void BorrarInicio();
     void BorrarPosicion(int pos);
     int largoLista();
+    
+        
+    void leerPasillo(listaDC &L2,lista &L1, string nombre);
     
    private:
     pnodoDC primero;

@@ -5,6 +5,7 @@
 #pragma once
 #include <iostream>
 #include "NodoSimple.h"
+
 using namespace std;
 
 
@@ -34,10 +35,9 @@ class lista {
     void sumarParMultImp(int num);
     void sumaNodosLista(int num1, int num2);
     void potenciaParesImpares(int num);
-    
-    //Tarea 4
     void mezclar (int num1, int num2);
     void centroSuma(int num);
+
     
    private:
     pnodo primero;
