@@ -33,18 +33,15 @@ class Menu {
 		void insertarMenu();
 		void insertarProducto();
 		void insertarClientes();
+
 		
-<<<<<<< HEAD
-		void eliminarClientes();
-		
-=======
 		void eliminarPais();
 		void eliminarCiudad();
 		void eliminarRest();
 		void eliminarMenu();
 		void eliminarProducto();
-	
->>>>>>> ff534163c532414660d5c840752eb5a9513927b6
+		void eliminarClientes();
+
 	private:
 		listaPaises baseDeDatos;
 		listaClientes clientes; //lista de clientes
@@ -416,33 +413,7 @@ void Menu::insertar(){
 	}while(bandera);
 	
 }
-<<<<<<< HEAD
 
-void Menu::eliminarClientes(){
-	system("cls");
-	cout<<"****************************** ELIMINAR CLIENTE ******************************"<<endl;
-	clientes.Mostrar();
-	cout<<endl<<"Ingrese la cedula del cliente a eliminar: ";
-	
-	int cedula;
-	cin>>cedula;
-	
-	pnodoClientes nodoClientes = clientes.buscarClientes(cedula);
-	if (nodoClientes!=NULL){
-		int pos = clientes.buscarPos(cedula);
-		clientes.borrarPosicion(pos);
-		cout<<endl<<"Se ha eliminado el cliente";
-		system("cls");
-		clientes.Mostrar();
-		system("pause");
-	}
-	else{
-		cout<<endl<<"Este cliente no se encuentra registrado."<<endl;
-		system("pause");
-	}
-}
-	
-=======
 //////////////////////////////////////////////ELIMINAR
 void Menu::eliminarPais(){
 	system("cls");
@@ -721,6 +692,30 @@ void Menu::eliminarProducto(){
 	}
 }
 
+void Menu::eliminarClientes(){
+	system("cls");
+	cout<<"****************************** ELIMINAR CLIENTE ******************************"<<endl;
+	clientes.Mostrar();
+	cout<<endl<<"Ingrese la cedula del cliente a eliminar: ";
+	
+	int cedula;
+	cin>>cedula;
+	
+	pnodoClientes nodoClientes = clientes.buscarClientes(cedula);
+	if (nodoClientes!=NULL){
+		int pos = clientes.buscarPos(cedula);
+		clientes.borrarPosicion(pos);
+		cout<<endl<<"Se ha eliminado el cliente";
+		system("cls");
+		clientes.Mostrar();
+		system("pause");
+	}
+	else{
+		cout<<endl<<"Este cliente no se encuentra registrado."<<endl;
+		system("pause");
+	}
+}
+
 void Menu::eliminar(){
 	bool bandera=true;
 	do{
@@ -756,6 +751,7 @@ void Menu::eliminar(){
 				eliminarProducto();
 				break;
 			case 6:
+				eliminarClientes();
 				break;
 			case 7:
 				bandera=false;
@@ -768,7 +764,7 @@ void Menu::eliminar(){
 	}while(bandera);
 	
 }
->>>>>>> ff534163c532414660d5c840752eb5a9513927b6
+//>>>>>>> ff534163c532414660d5c840752eb5a9513927b6
 	
 void Menu::menu(){
 	bool bandera=true;
@@ -798,11 +794,7 @@ void Menu::menu(){
 			menu();
 			break;
 		case 2:
-<<<<<<< HEAD
-			eliminarClientes();
-=======
 			eliminar();
->>>>>>> ff534163c532414660d5c840752eb5a9513927b6
 			break;
 		case 3:
 			menu();
