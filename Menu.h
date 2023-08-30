@@ -68,10 +68,12 @@ void Menu::insertarPais(){
 	pnodoPaises nodoPais = baseDeDatos.buscarPais(codPais);
 	if (nodoPais==NULL){
 		cout<<endl<<"Ingrese el nombre del pais a agregar: ";
-		cin>>nombre;
+		cin.ignore();
+		getline(cin,nombre);
 		baseDeDatos.InsertarInicio(codPais,nombre);
 		system("cls");
 		baseDeDatos.Mostrar();
+		cout<<endl<<"Se ha insertado el pais."<<endl;
 		system("pause");
 	}
 	else{
@@ -105,10 +107,12 @@ void Menu::insertarCiudad(){
 	pnodoCiudades nodoCiudad = baseDeDatos.buscarCiudad(codPais, codCiudad);
 	if (nodoCiudad==NULL){
 		cout<<endl<<"Ingrese el nombre de la ciudad a agregar: ";
-		cin>>nombre;
+		cin.ignore();
+		getline(cin,nombre);
 		baseDeDatos.insertarCiudad(codPais, codCiudad, nombre);
 		system("cls");
 		nodoPais->ciudades.Mostrar();
+		cout<<endl<<"Se ha insertado la ciudad."<<endl;
 		system("pause");
 	}
 	else{
@@ -160,10 +164,12 @@ void Menu::insertarRest(){
 	pnodoRest nodoRest = baseDeDatos.buscarRest(codPais,codCiudad,codRest);
 	if (nodoRest==NULL){
 		cout<<endl<<"Ingrese el nombre del restaurante a agregar: ";
-		cin>>nombre;
+		cin.ignore();
+		getline(cin,nombre);
 		baseDeDatos.insertarRest(codPais,codCiudad,codRest, nombre);
 		system("cls");
 		nodoCiudad->restaurantes.Mostrar();
+		cout<<endl<<"Se ha insertado el restaurante."<<endl;
 		system("pause");
 	}
 	else{
@@ -233,10 +239,12 @@ void Menu::insertarMenu(){
 	pnodoMenu nodoMenu = baseDeDatos.buscarMenu(codPais,codCiudad,codRest,codMenu);
 	if (nodoMenu==NULL){
 		cout<<endl<<"Ingrese el nombre del menu a agregar: ";
-		cin>>nombre;
+		cin.ignore();
+		getline(cin,nombre);
 		baseDeDatos.insertarMenu(codPais,codCiudad,codRest,codMenu, nombre);
 		system("cls");
 		nodoRest->menus.Mostrar();
+		cout<<endl<<"Se ha insertado el menu."<<endl;
 		system("pause");
 	}
 	else{
@@ -308,7 +316,7 @@ void Menu::insertarProducto(){
 	int codMenu;
 	cin>>codMenu;
 	pnodoMenu nodoMenu = baseDeDatos.buscarMenu(codPais, codCiudad,codRest,codMenu);
-	if(nodoRest==NULL){
+	if(nodoMenu==NULL){
 		cout<<endl<<"Menu Invalido o No Registrado"<<endl;
 		system("pause");
 		return;
@@ -323,7 +331,8 @@ void Menu::insertarProducto(){
 	if (nodoProd==NULL){
 		int kcal, precio;
 		cout<<endl<<"Ingrese el nombre del producto a agregar: ";
-		cin>>nombre;
+		cin.ignore();
+		getline(cin,nombre);
 		cout<<endl<<endl<<"Ingrese las calorias del producto a agregar: ";
 		cin>>kcal;
 		cout<<endl<<endl<<"Ingrese el precio del producto a agregar: ";
@@ -331,6 +340,7 @@ void Menu::insertarProducto(){
 		baseDeDatos.insertarProducto(codPais,codCiudad,codRest,codMenu, codProd, nombre, kcal, precio);
 		system("cls");
 		nodoMenu->productos.Mostrar();
+		cout<<endl<<"Se ha insertado el producto."<<endl;
 		system("pause");
 	}
 	else{
@@ -357,6 +367,7 @@ void Menu::insertarClientes(){
 		clientes.InsertarFinal(cedula,nombreCliente);
 		system("cls");
 		clientes.Mostrar();
+		cout<<endl<<"Se ha insertado el cliente."<<endl;
 		system("pause");
 	}
 	else{
@@ -429,6 +440,7 @@ void Menu::eliminarPais(){
 		baseDeDatos.BorrarPosicion(posicion);
 		system("cls");
 		baseDeDatos.Mostrar();
+		cout<<endl<<"Se ha eliminado el pais."<<endl;
 		system("pause");
 	}
 	else{
@@ -465,6 +477,7 @@ void Menu::eliminarCiudad(){
 		nodoPais->ciudades.BorrarPosicion(posicion);
 		system("cls");
 		nodoPais->ciudades.Mostrar();
+		cout<<endl<<"Se ha eliminado la ciudad."<<endl;
 		system("pause");
 	}
 	else{
@@ -519,6 +532,7 @@ void Menu::eliminarRest(){
 		nodoCiudad->restaurantes.BorrarPosicion(posicion);
 		system("cls");
 		nodoCiudad->restaurantes.Mostrar();
+		cout<<endl<<"Se ha eliminado el restaurante."<<endl;
 		system("pause");
 	}
 	else{
@@ -592,6 +606,7 @@ void Menu::eliminarMenu(){
 		nodoRest->menus.BorrarPosicion(posicion);
 		system("cls");
 		nodoRest->menus.Mostrar();
+		cout<<endl<<"Se ha eliminado el menu."<<endl;
 		system("pause");
 	}
 	else{
@@ -654,11 +669,11 @@ void Menu::eliminarProducto(){
 		
 	system("cls");
 	nodoRest->menus.Mostrar();
-	cout<<endl<<"Ingrese el codigo del menu que quiere insertar un producto: ";
+	cout<<endl<<"Ingrese el codigo del menu que quiere eliminar un producto: ";
 	int codMenu;
 	cin>>codMenu;
 	pnodoMenu nodoMenu = baseDeDatos.buscarMenu(codPais, codCiudad,codRest,codMenu);
-	if(nodoRest==NULL){
+	if(nodoMenu==NULL){
 		cout<<endl<<"Menu Invalido o No Registrado"<<endl;
 		system("pause");
 		return;
@@ -683,6 +698,7 @@ void Menu::eliminarProducto(){
 		nodoMenu->productos.BorrarPosicion(posicion);
 		system("cls");
 		nodoMenu->productos.Mostrar();
+		cout<<endl<<"Se ha eliminado el producto."<<endl;
 		system("pause");
 	}
 	else{
@@ -705,9 +721,9 @@ void Menu::eliminarClientes(){
 	if (nodoClientes!=NULL){
 		int pos = clientes.buscarPos(cedula);
 		clientes.borrarPosicion(pos);
-		cout<<endl<<"Se ha eliminado el cliente";
 		system("cls");
 		clientes.Mostrar();
+		cout<<endl<<"Se ha eliminado el cliente"<<endl;
 		system("pause");
 	}
 	else{

@@ -162,7 +162,6 @@ void listaClientes::borrarPosicion(int pos) {
 					pnodoClientes temp=aux->siguiente;
 					aux->siguiente=aux->siguiente->siguiente;
 					delete temp;
-					cout << "hola" << endl;
 				}
 			}
 		}
@@ -174,13 +173,11 @@ int listaClientes::buscarPos(int cedula_Parametro){
 	pnodoClientes aux = primero;
 	while(aux != NULL)	{
 		if (aux->cedula == cedula_Parametro){
-			cout << pos << endl;
 			return pos;
 		}
 		aux=aux->siguiente;
 		pos++;
 	}
-	cout << -1 << endl;
 	return 0;
 }
 
