@@ -148,6 +148,22 @@ void listaPaises::BorrarInicio()
         }
 }
 
+int listaPaises::getPosicion(int codigo){
+	if (primero==NULL){
+		return 0;
+	}
+	pnodoPaises aux=primero;
+	int cont=1;
+	while(aux){
+		if (aux->codPais==codigo){
+			return cont;
+		}
+		aux = aux->siguiente;
+		cont++;
+	}
+	return 0;
+}
+
 void listaPaises:: BorrarPosicion(int pos)
 {
         if(ListaVacia())
@@ -229,7 +245,29 @@ pnodoRest listaPaises::buscarRest(int pais,int ciudad,int rest){
 	}
 	pnodoCiudades nodoCiudad = buscarCiudad(pais,ciudad);
 	if (nodoCiudad!=NULL){
-		return nodoCiudad->restaurantes.buscarRest(ciudad);
+		return nodoCiudad->restaurantes.buscarRest(rest);
+	}
+	return NULL;
+}
+
+pnodoMenu listaPaises::buscarMenu(int pais, int ciudad, int rest, int menu){
+	if (primero==NULL){
+		return NULL;
+	}
+	pnodoRest nodoRest = buscarRest(pais,ciudad, rest);
+	if (nodoRest!=NULL){
+		return nodoRest->menus.buscarMenu(menu);
+	}
+	return NULL;
+}
+
+pnodoProductos listaPaises::buscarProd(int pais, int ciudad, int rest, int menu, int prod){
+	if (primero==NULL){
+		return NULL;
+	}
+	pnodoMenu nodoMenu = buscarMenu(pais,ciudad, rest, menu);
+	if (nodoMenu!=NULL){
+		return nodoMenu->productos.buscarProducto(prod);
 	}
 	return NULL;
 }
@@ -246,6 +284,25 @@ void listaPaises::insertarRest(int pais, int ciudad,int rest, string nombre){
 	if (nodoCiudad!=NULL){
 		nodoCiudad->restaurantes.InsertarFinal(pais, ciudad, rest, nombre);
 	}
+}
+
+void listaPaises::insertarMenu(int pais, int ciudad,int rest, int menu, string nombre){
+	
+	pnodoRest nodoRest = buscarRest(pais,ciudad, rest);
+	
+	if (nodoRest!=NULL){
+		nodoRest->menus.InsertarFinal(pais, ciudad, rest, menu,  nombre);
+	}
+}
+
+void listaPaises::insertarProducto(int pais, int ciudad,int rest, int menu,int prod, string nombre, int kcal, int precio){
+	
+	pnodoMenu nodoMenu = buscarMenu(pais,ciudad, rest, menu);
+	
+	if (nodoMenu!=NULL){
+		nodoMenu->productos.InsertarFinal(pais, ciudad, rest, menu, prod,nombre, kcal, precio);
+	}
+	
 }
 
 void listaPaises::leerPaises(string nombre){
@@ -374,6 +431,125 @@ void listaPaises::leerRestaurantes(string nombre){
 				pnodoRest nodoRest = buscarRest(stoi(pais), stoi(ciudad), stoi(rest));
 				if (nodoRest==NULL){
 					insertarRest(stoi(pais), stoi(ciudad), stoi(rest), nombre);
+				}
+			} //Si cumple las condiciones ingresa el prducto
+		}
+		aux= aux->siguiente;}
+	L1.~lista();
+}
+
+void listaPaises::leerMenu(string nombre){
+	string linea;
+	ifstream archivo(nombre.c_str());
+	
+	lista L1;
+	
+	while (!archivo.eof()) {	//Cada linea del archivo de productos se mete a una lista simple
+		getline(archivo, linea);
+		L1.InsertarFinal(linea);
+    }
+    pnodo aux=L1.primero; //se crea un nodo en primero de la lista simple
+    while(aux!=NULL){ 
+		int cont=0; 
+    	int temp =aux->valor.length(); //Crea un temp con la cantidad de caracteres que tenga cada linea del nodo
+    	string pais="";
+    	string ciudad = "";
+    	string nombre = "";
+    	string rest = "";
+    	string menu = "";
+    	string tempNom=aux->valor;  //Un temp que tiene la linea
+    	for (int i=0; i< temp; i++){ //Se hace un while con un contador mientras sea menor al temp
+    		if (tempNom[i]==';'){ //Cuando se encuentra con un ; aumenta 1 al cont, esto para cambiar a la varibale a la que se le esta
+    			cont++;}		  //agregando los caracteres
+			else{ //Dependiendo del cont se le agrega a una variable o a otra
+				if (cont==0){
+					pais+=aux->valor[i];}
+				if (cont==1){
+					ciudad+=aux->valor[i];}
+    			if (cont==2){
+    				rest+=aux->valor[i];}
+    			if (cont==3){
+    				menu+=aux->valor[i];}
+				if (cont==4){
+    				nombre+=aux->valor[i];}
+			}
+		}
+		pnodoPaises nodoPais = buscarPais(stoi(pais));
+		if(nodoPais!=NULL){ //Se verifica que el numero de pasillo se encuentre ingresado en la lista
+			pnodoCiudades nodoCiudad = buscarCiudad(stoi(pais),stoi(ciudad));
+			if (nodoCiudad!=NULL){ //Se verifica que el numero de producto no este ya ingresado en la lista
+				pnodoRest nodoRest = buscarRest(stoi(pais), stoi(ciudad), stoi(rest));
+				if (nodoRest!=NULL){
+					pnodoMenu nodoMenu = buscarMenu(stoi(pais), stoi(ciudad), stoi(rest), stoi(menu));
+					if (nodoMenu==NULL){
+						insertarMenu(stoi(pais), stoi(ciudad), stoi(rest), stoi(menu), nombre);
+					}
+				}
+			} //Si cumple las condiciones ingresa el prducto
+		}
+		aux= aux->siguiente;}
+	L1.~lista();
+}
+
+void listaPaises::leerProductos(string nombre){
+		string linea;
+	ifstream archivo(nombre.c_str());
+	
+	lista L1;
+	
+	while (!archivo.eof()) {	//Cada linea del archivo de productos se mete a una lista simple
+		getline(archivo, linea);
+		L1.InsertarFinal(linea);
+    }
+    pnodo aux=L1.primero; //se crea un nodo en primero de la lista simple
+    while(aux!=NULL){ 
+		int cont=0; 
+    	int temp =aux->valor.length(); //Crea un temp con la cantidad de caracteres que tenga cada linea del nodo
+    	string pais="";
+    	string ciudad = "";
+    	string nombre = "";
+    	string rest = "";
+    	string menu = "";
+    	string prod = "";
+    	string kcal = "";
+    	string precio = "";
+    	string tempNom=aux->valor;  //Un temp que tiene la linea
+    	for (int i=0; i< temp; i++){ //Se hace un while con un contador mientras sea menor al temp
+    		if (tempNom[i]==';'){ //Cuando se encuentra con un ; aumenta 1 al cont, esto para cambiar a la varibale a la que se le esta
+    			cont++;}		  //agregando los caracteres
+			else{ //Dependiendo del cont se le agrega a una variable o a otra
+				if (cont==0){
+					pais+=aux->valor[i];}
+				if (cont==1){
+					ciudad+=aux->valor[i];}
+    			if (cont==2){
+    				rest+=aux->valor[i];}
+    			if (cont==3){
+    				menu+=aux->valor[i];}
+				if (cont==4){
+    				prod+=aux->valor[i];}
+    			if (cont==5){
+    				nombre+=aux->valor[i];}
+    			if (cont==6){
+    				kcal+=aux->valor[i];}
+    			if (cont==7){
+    				precio+=aux->valor[i];}
+			}
+		}
+//		cout<<pais<<"-"<<ciudad<<"-"<<rest<<"-"<<menu<<"-"<<prod<<"-"<<nombre<<"-"<<kcal<<"-"<<precio<<endl;
+		pnodoPaises nodoPais = buscarPais(stoi(pais));
+		if(nodoPais!=NULL){ //Se verifica que el numero de pasillo se encuentre ingresado en la lista
+			pnodoCiudades nodoCiudad = buscarCiudad(stoi(pais),stoi(ciudad));
+			if (nodoCiudad!=NULL){ //Se verifica que el numero de producto no este ya ingresado en la lista
+				pnodoRest nodoRest = buscarRest(stoi(pais), stoi(ciudad), stoi(rest));
+				if (nodoRest!=NULL){
+					pnodoMenu nodoMenu = buscarMenu(stoi(pais), stoi(ciudad), stoi(rest), stoi(menu));
+					if (nodoMenu!=NULL){
+						pnodoProductos nodoProd = buscarProd(stoi(pais), stoi(ciudad), stoi(rest), stoi(menu), stoi(rest));
+						if (nodoProd==NULL){
+							insertarProducto(stoi(pais), stoi(ciudad), stoi(rest), stoi(menu),stoi(prod), nombre,stoi(kcal),stoi(precio));
+						}
+					}
 				}
 			} //Si cumple las condiciones ingresa el prducto
 		}

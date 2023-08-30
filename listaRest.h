@@ -30,10 +30,12 @@ class listaRest {
     void BorrarInicio();
     void BorrarPosicion(int pos);
     int largoLista();
+    int getPosicion(int codigo);
     
     pnodoRest buscarRest(int rest);
     
    private:
     pnodoRest primero;
    
+   friend class Menu;
 };

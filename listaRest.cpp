@@ -221,6 +221,7 @@ void listaRest::Mostrar()
    do
      {     
       cout <<"			*"<<aux->codPais << " -> "<<aux->codCiudad<<" -> "<<aux->codRest<<" -> "<<aux->nombre<<endl;
+//      aux->menus.Mostrar();
       aux = aux->siguiente;
      } while(aux!=primero);
 }   
@@ -237,4 +238,20 @@ pnodoRest listaRest::buscarRest(int rest){
 		aux = aux->siguiente;
 	}while(aux!=primero);
 	return NULL;
+}
+
+int listaRest::getPosicion(int codigo){
+	if (primero==NULL){
+		return 0;
+	}
+	pnodoRest aux=primero;
+	int cont=1;
+	do{
+		if (aux->codRest==codigo){
+			return cont;
+		}
+		aux = aux->siguiente;
+		cont++;
+	}while(aux!=primero);
+	return 0;
 }
