@@ -137,35 +137,52 @@ void listaClientes::BorrarInicio() {
 	}
 }
 
-
-
-void listaClientes:: borrarPosicion(int pos) {
+void listaClientes::borrarPosicion(int pos) {
 	if(ListaVacia()) {
 		cout << "Lista vacia" <<endl;
 	} else {
-		if((pos>largoLista())||(pos<0)) {
-			cout << "Error en posicion" << endl;
-		} else {
-			if(pos==1) {
-				pnodoClientes temp=primero;
-				primero=primero->siguiente;
-				delete temp; //BorrarInicio();
+		if (pos == -1){
+			cout << "Este cliente no está registrado" << endl;
+		} else{
+			if((pos>largoLista())||(pos<0))//no validas
+        	{
+        	cout << "Error en posicion" << endl;
 			} else {
-				int cont=2;
-				pnodoClientes aux=  primero;
-				while(cont<pos) {
-					aux=aux->siguiente;
-					cont++;
+				if(pos==1) {
+					pnodoClientes temp=primero;
+					primero=primero->siguiente;
+					delete temp; //BorrarInicio();
+				} else {
+					int cont=2;
+					pnodoClientes aux=  primero;
+					while(cont<pos) {
+						aux=aux->siguiente;
+						cont++;
+					}
+					pnodoClientes temp=aux->siguiente;
+					aux->siguiente=aux->siguiente->siguiente;
+					delete temp;
+					cout << "hola" << endl;
 				}
-				pnodoClientes temp=aux->siguiente;
-				aux->siguiente=aux->siguiente->siguiente;
-				delete temp;
 			}
 		}
 	}
-
 }
 
+int listaClientes::buscarPos(int cedula_Parametro){		
+	int pos = 1;
+	pnodoClientes aux = primero;
+	while(aux != NULL)	{
+		if (aux->cedula == cedula_Parametro){
+			cout << pos << endl;
+			return pos;
+		}
+		aux=aux->siguiente;
+		pos++;
+	}
+	cout << -1 << endl;
+	return 0;
+}
 
 void listaClientes::Mostrar() {
 	nodoClientes *aux;

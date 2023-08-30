@@ -29,6 +29,8 @@ class Menu {
 		void insertarPais();
 		void insertarClientes();
 		
+		void eliminarClientes();
+		
 	private:
 		listaPaises baseDeDatos;
 		listaClientes clientes; //lista de clientes
@@ -137,6 +139,31 @@ void Menu::insertar(){
 	}while(bandera);
 	
 }
+
+void Menu::eliminarClientes(){
+	system("cls");
+	cout<<"****************************** ELIMINAR CLIENTE ******************************"<<endl;
+	clientes.Mostrar();
+	cout<<endl<<"Ingrese la cedula del cliente a eliminar: ";
+	
+	int cedula;
+	cin>>cedula;
+	
+	pnodoClientes nodoClientes = clientes.buscarClientes(cedula);
+	if (nodoClientes!=NULL){
+		int pos = clientes.buscarPos(cedula);
+		clientes.borrarPosicion(pos);
+		cout<<endl<<"Se ha eliminado el cliente";
+		system("cls");
+		clientes.Mostrar();
+		system("pause");
+	}
+	else{
+		cout<<endl<<"Este cliente no se encuentra registrado."<<endl;
+		system("pause");
+	}
+}
+	
 	
 void Menu::menu(){
 	bool bandera=true;
@@ -160,7 +187,7 @@ void Menu::menu(){
 			menu();
 			break;
 		case 2:
-			menu();
+			eliminarClientes();
 			break;
 		case 3:
 			menu();

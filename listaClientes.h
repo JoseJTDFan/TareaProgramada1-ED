@@ -26,8 +26,8 @@ class listaClientes {
     void BorrarInicio();
     void borrarPosicion(int pos);
     int largoLista();// retorno un valor numerico
-    bool buscarNum(int num);
-    pnodoClientes buscarClientes(int cedula_parametro);
+    int buscarPos(int cedula_Parametro);
+    pnodoClientes buscarClientes(int cedula_Parametro);
     void leerClientes(string nombre);
     
    private:
