@@ -41,7 +41,7 @@ class lista {
     pnodo primero;
     
     friend class listaPaises;
-   
+   	friend class listaClientes;
 };
 
 

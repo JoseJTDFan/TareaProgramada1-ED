@@ -8,6 +8,7 @@
 #include "ListaDoble.h"
 #include "ListaPaises.h"
 #include "listaRest.h"
+#include "listaClientes.h"
 #include <cstdlib>
 
 
@@ -26,15 +27,18 @@ class Menu {
 		void reportes();
 		
 		void insertarPais();
-	
+		void insertarClientes();
+		
 	private:
 		listaPaises baseDeDatos;
+		listaClientes clientes; //lista de clientes
 };
 
 void Menu::lecturaArchivos(){
 	baseDeDatos.leerPaises("Paises.txt");
 	baseDeDatos.leerCiudades("Ciudades.txt");
 	baseDeDatos.leerRestaurantes("Restaurantes.txt");
+	clientes.leerClientes("Clientes.txt");
 }
 
 void Menu::insertarPais(){
@@ -57,6 +61,30 @@ void Menu::insertarPais(){
 	}
 	else{
 		cout<<endl<<"Este codigo ya se encuentra registrado."<<endl;
+		system("pause");
+	}
+}
+
+void Menu::insertarClientes(){
+	system("cls");
+	cout<<"****************************** INSERTAR CLIENTE ******************************"<<endl;
+	cout<<endl<<"Ingrese la cedula del cliente a agregar: ";
+	
+	int cedula;
+	string nombreCliente;
+	
+	cin>>cedula;
+	pnodoClientes nodoClientes = clientes.buscarClientes(cedula);
+	if (nodoClientes==NULL){
+		cout<<endl<<"Ingrese el nombre del cliente a agregar: ";
+		cin>>nombreCliente;
+		clientes.InsertarFinal(cedula,nombreCliente);
+		system("cls");
+		clientes.Mostrar();
+		system("pause");
+	}
+	else{
+		cout<<endl<<"Esta cedula ya se encuentra registrada."<<endl;
 		system("pause");
 	}
 }
@@ -96,6 +124,10 @@ void Menu::insertar(){
 				menu();
 				break;
 			case 6:
+				insertarClientes();
+				break;
+			case 7:
+				bandera=false;
 				break;
 			default:
 				cout<<"Ingrese un numero valido"<<endl;

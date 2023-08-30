@@ -30,6 +30,7 @@ nodo(string v, nodo  *signodo)
         
    friend class lista;
    friend class listaPaises;
+   friend class listaClientes;
    };
 
 typedef nodo *pnodo; //Alias
