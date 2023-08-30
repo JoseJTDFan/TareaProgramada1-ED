@@ -14,24 +14,22 @@ class lista {
     lista() { primero =  NULL; }//constructor
     ~lista();//destructor
     
-    void InsertarInicio(int v);//No retornan nada
-    void InsertarFinal(int v);
-    void InsertarPos (int v, int pos);
+    void InsertarInicio(string v);//No retornan nada
+    void InsertarFinal(string v);
+    void InsertarPos (string v, int pos);
     bool ListaVacia() { return primero == NULL; } //retorna True o False
     void Mostrar();//imprimir
     void BorrarFinal();
     void BorrarInicio();
     void borrarPosicion(int pos);
-    void Sumanum(int num);
     int largoLista();// retorno un valor numerico
     void promedioDigitos(int num);
     void invertirLista();
-    int contDigitos(int num);
     bool buscarNum(int num);
     bool buscarNumPos (int num, int pos);
     void sumaListasIgual(lista *L2);
     void sumaListasDiff(lista *L2);
-    int contarPares(int num);
+
     void sumarParMultImp(int num);
     void sumaNodosLista(int num1, int num2);
     void potenciaParesImpares(int num);
@@ -41,6 +39,8 @@ class lista {
     
    private:
     pnodo primero;
+    
+    friend class listaPaises;
    
 };
 

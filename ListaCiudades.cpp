@@ -3,12 +3,12 @@
 //Estructuras de Datos
 
 
-#include "ListaDoble.h"
+#include "ListaCiudades.h"
 using namespace std;
 
-listaDoble::~listaDoble()
+listaCiudades::~listaCiudades()
 {
-   pnodoDoble aux;
+   pnodoCiudades aux;
    
    while(primero) {
       aux = primero;
@@ -18,10 +18,10 @@ listaDoble::~listaDoble()
    primero=NULL;
 }
 
-int listaDoble::largoLista(){
+int listaCiudades::largoLista(){
     int cont=0;
 
-    pnodoDoble aux;
+    pnodoCiudades aux;
     aux = primero;
     if(ListaVacia()){
         return cont;
@@ -35,68 +35,69 @@ int listaDoble::largoLista(){
     
 }
 
-void listaDoble::InsertarInicio(int v)
+void listaCiudades::InsertarInicio(int pais, int ciudad, string pnombre)
 {
    if (ListaVacia())
    {
    
-     primero = new nodoDoble(v);
+     primero = new nodoCiudades(pais, ciudad, pnombre);
      primero->anterior=NULL;     
    }
    else
    {
-     primero=new nodoDoble (v,primero);
+     primero=new nodoCiudades (pais, ciudad, pnombre);
      primero->siguiente->anterior=primero;
    }
+   
 }
 //Otra forma ultimas dos lineas
-// pnodoDoble nuevo=new nodoDoble(v);
+// pnodoCiudades nuevo=new nodoCiudades(v);
 //nuevo->siguiente=primero;
 //primero->anterior=nuevo;
 //primero=nuevo;
  
-void listaDoble::InsertarFinal(int v)
+void listaCiudades::InsertarFinal(int pais, int ciudad, string pnombre)
 {
    if (ListaVacia())
    {
    
-     primero = new nodoDoble(v);
+     primero = new nodoCiudades(pais, ciudad, pnombre);
        
    }
    else
-     { pnodoDoble aux = primero;
+     { pnodoCiudades aux = primero;
         while ( aux->siguiente != NULL)
           aux= aux->siguiente;
-        aux->siguiente=new nodoDoble(v);
+        aux->siguiente=new nodoCiudades(pais, ciudad, pnombre);
         aux->siguiente->anterior=aux;       
       }    
 }
 //Otra forma cambia las ultimas dos instrucciones
-//pnodoDoble nuevo= new nodoDoble(v);
+//pnodoCiudades nuevo= new nodoCiudades(v);
 //nuevo->anterior=aux;
 //aux->siguiente=nuevo;
 
 
-void listaDoble::InsertarPos(int v,int pos)
+void listaCiudades::InsertarPos(int pais, int ciudad, string pnombre,int pos)
 {
    if (ListaVacia())
     {
    
-     primero = new nodoDoble(v);
+     primero = new nodoCiudades(pais, ciudad, pnombre);
      primero->anterior=NULL;     
    }
    else{
         if(pos <=1)
-          InsertarInicio(v);    
+          InsertarInicio(pais, ciudad, pnombre);    
         else
         {
-             pnodoDoble aux= primero;
+             pnodoCiudades aux= primero;
              int i =2;
              while((i != pos )&&(aux->siguiente!= NULL)){
                    i++;
                    aux=aux->siguiente;
              }
-             pnodoDoble nuevo= new nodoDoble(v);
+             pnodoCiudades nuevo= new nodoCiudades(pais, ciudad, pnombre);
              nuevo->siguiente=aux->siguiente;
 			 nuevo->anterior=aux;
 			   nuevo->siguiente->anterior=nuevo;
@@ -105,28 +106,28 @@ void listaDoble::InsertarPos(int v,int pos)
         }
 }
       
-void listaDoble::BorrarFinal()
+void listaCiudades::BorrarFinal()
 {
     if (ListaVacia()){
      cout << "No hay elementos en la lista:" << endl;
     
    }else{
-        if (primero->siguiente == NULL)//solo un nodoDoble
+        if (primero->siguiente == NULL)//solo un nodoCiudades
 		 {
-        	pnodoDoble temp=primero;
+        	pnodoCiudades temp=primero;
             primero= NULL;
             delete temp;
             } 
 			else 
 			{
 
-                pnodoDoble aux = primero;
+                pnodoCiudades aux = primero;
                 while (aux->siguiente->siguiente != NULL) 
                 {
                     aux = aux->siguiente;
                 }
                 
-              pnodoDoble temp = aux->siguiente;
+              pnodoCiudades temp = aux->siguiente;
               aux->siguiente= NULL;
                       
                 delete temp;
@@ -134,21 +135,21 @@ void listaDoble::BorrarFinal()
         }
 }
 
-void listaDoble::BorrarInicio()
+void listaCiudades::BorrarInicio()
 {
     if (ListaVacia()){
      cout << "No hay elementos en la lista:" << endl;
     
    }else{
         if (primero->siguiente == NULL) {
-            pnodoDoble temp=primero;
+            pnodoCiudades temp=primero;
             primero= NULL;
             delete temp;
             } 
 			else
 			{
 
-                pnodoDoble aux = primero;
+                pnodoCiudades aux = primero;
                 primero=primero->siguiente;   
 				primero->anterior=NULL;            
                 delete aux;
@@ -158,7 +159,7 @@ void listaDoble::BorrarInicio()
 
 
 
-void listaDoble:: BorrarPosicion(int pos)
+void listaCiudades:: BorrarPosicion(int pos)
 {
      if(ListaVacia())
      {
@@ -181,13 +182,13 @@ void listaDoble:: BorrarPosicion(int pos)
           else
           {   
             int cont=2;
-            pnodoDoble aux=  primero;
+            pnodoCiudades aux=  primero;
             while(cont<pos)
             {
              aux=aux->siguiente;
              cont++;
             }
-            pnodoDoble temp=aux->siguiente;
+            pnodoCiudades temp=aux->siguiente;
             aux->siguiente=aux->siguiente->siguiente;
             aux->siguiente->anterior=aux;
             delete temp;
@@ -198,15 +199,33 @@ void listaDoble:: BorrarPosicion(int pos)
 }
  
 
-void listaDoble::Mostrar()
+void listaCiudades::Mostrar()
 {
-   nodoDoble *aux;
+   nodoCiudades *aux;
    
    aux = primero;
    while(aux) {
-      cout << aux->valor << "-> ";
+   		
+      cout <<"		*"<<aux->codPais << " -> "<<aux->codCiudad<<" -> "<<aux->nombre<<endl;
+//      aux->restaurantes.Mostrar();
       aux = aux->siguiente;
    }
    cout << endl;
+   
+   
+}
+
+pnodoCiudades listaCiudades::buscarCiudad(int ciudad){
+	if (primero==NULL){
+		return NULL;
+	}
+	pnodoCiudades aux=primero;
+	while(aux){
+		if (aux->codCiudad==ciudad){
+			return aux;
+		}
+		aux = aux->siguiente;
+	}
+	return NULL;
 }
 

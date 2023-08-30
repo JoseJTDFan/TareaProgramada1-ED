@@ -10,13 +10,13 @@ class nodo { // Constructores
    public:
    	
    	
-nodo(int v)//3
+nodo(string v)//3
     {
        valor = v;
        siguiente = NULL;
     }
 
-nodo(int v, nodo  *signodo)
+nodo(string v, nodo  *signodo)
     {
        valor = v;
        siguiente = signodo;
@@ -24,12 +24,13 @@ nodo(int v, nodo  *signodo)
 
 
    private:
-    int valor=0;
+    string valor="";
     nodo *siguiente;// Clase Autoreferencia
     
         
    friend class lista;
-};
+   friend class listaPaises;
+   };
 
 typedef nodo *pnodo; //Alias
 

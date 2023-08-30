@@ -27,7 +27,7 @@ nodoDoble(int v, nodoDoble * signodo)
     nodoDoble *anterior;
     
         
-   friend class listaD;
+   friend class listaDoble;
 };
 
 typedef nodoDoble *pnodoDoble;

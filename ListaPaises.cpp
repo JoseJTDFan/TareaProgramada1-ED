@@ -1,0 +1,383 @@
+//José Julián Brenes Garro y Gustavo Pacheco Morales
+//c.2022272865
+//Estructuras de Datos
+
+#include "listaPaises.h"
+using namespace std;
+                
+listaPaises::~listaPaises()
+{
+   pnodoPaises aux;
+   
+   while(primero) {
+      aux = primero;
+      primero = primero->siguiente;
+      delete aux;
+   }
+   primero=NULL;
+}
+   
+
+                        //  aux
+int listaPaises::largoLista() //3-4-5    cont=0 1 2 3
+{
+    int cont=0;
+
+    pnodoPaises aux;
+    aux = primero;
+    if(ListaVacia()){
+        return cont;
+    }else{
+        while(aux!=NULL){
+        aux=aux->siguiente;
+        cont++;
+    }
+    return cont;
+    }
+}
+
+void listaPaises::InsertarInicio(int pais, string pnombre)
+{
+  if (ListaVacia())
+   {
+   
+     primero = new nodoPaises(pais, pnombre);
+     primero->anterior=NULL;     
+   }
+   else
+   {
+     primero=new nodoPaises (pais, pnombre,primero);
+     primero->siguiente->anterior=primero;
+   }
+}
+ 
+void listaPaises::InsertarFinal(int pais, string pnombre)
+{
+   if (ListaVacia())
+   {
+   
+     primero = new nodoPaises(pais, pnombre);
+       
+   }
+   else
+     { pnodoPaises aux = primero;
+        while ( aux->siguiente != NULL)
+          aux= aux->siguiente;
+        aux->siguiente=new nodoPaises(pais, pnombre);
+        aux->siguiente->anterior=aux;       
+      }    
+}
+
+
+void listaPaises::InsertarPos(int pais, string pnombre, int pos)
+{
+   if (ListaVacia())
+    {
+   
+     primero = new nodoPaises(pais, pnombre);
+     primero->anterior=NULL;     
+   }
+   else{
+        if(pos <=1)
+          InsertarInicio(pais, pnombre);    
+        else
+        {
+             pnodoPaises aux= primero;
+             int i =2;
+             while((i != pos )&&(aux->siguiente!= NULL)){
+                   i++;
+                   aux=aux->siguiente;
+             }
+             pnodoPaises nuevo= new nodoPaises(pais, pnombre);
+             nuevo->siguiente=aux->siguiente;
+			 nuevo->anterior=aux;
+			   nuevo->siguiente->anterior=nuevo;
+			   aux->siguiente=nuevo;                      
+        }
+    }
+}   
+
+void listaPaises::BorrarFinal()
+{
+  if (ListaVacia()){
+     cout << "No hay elementos en la lista:" << endl;
+    
+   }else{
+        if (primero->siguiente == NULL)//solo un nodoPaises
+		 {
+        	pnodoPaises temp=primero;
+            primero= NULL;
+            delete temp;
+            } 
+			else 
+			{
+
+                pnodoPaises aux = primero;
+                while (aux->siguiente->siguiente != NULL) 
+                {
+                    aux = aux->siguiente;
+                }
+                
+              pnodoPaises temp = aux->siguiente;
+              aux->siguiente= NULL;
+                      
+                delete temp;
+            }
+    }
+}
+
+void listaPaises::BorrarInicio()
+{
+     if (ListaVacia()){
+     cout << "No hay elementos en la lista:" << endl;
+    
+   }else{
+        if (primero->siguiente == NULL) {
+            pnodoPaises temp=primero;
+            primero= NULL;
+            delete temp;
+            } 
+			else
+			{
+
+                pnodoPaises aux = primero;
+                primero=primero->siguiente;   
+				primero->anterior=NULL;            
+                delete aux;
+            }
+        }
+}
+
+void listaPaises:: BorrarPosicion(int pos)
+{
+        if(ListaVacia())
+     {
+              cout << "Lista vacia" <<endl;
+     }
+     else
+     {
+        if((pos>largoLista())||(pos<0))//no validas
+        {
+        cout << "Error en posicion" << endl;
+        }
+        else
+        {
+        if(pos==1)
+           BorrarInicio();
+        else
+        {
+          if (pos == largoLista())   
+             BorrarFinal();
+          else
+          {   
+            int cont=2;
+            pnodoPaises aux=  primero;
+            while(cont<pos)
+            {
+             aux=aux->siguiente;
+             cont++;
+            }
+            pnodoPaises temp=aux->siguiente;
+            aux->siguiente=aux->siguiente->siguiente;
+            aux->siguiente->anterior=aux;
+            delete temp;
+          }//else
+        }//else
+      }//else
+    }//else
+}
+
+void listaPaises::Mostrar()
+{
+   pnodoPaises aux=primero;
+   	while(aux){
+   		cout<<"	* "<<aux->codPais<<" -> "<<aux->nombre<<endl;
+//   		aux->ciudades.Mostrar();
+      	aux = aux->siguiente;
+	}       
+     cout<<endl;
+}   
+
+pnodoPaises listaPaises::buscarPais(int pais){
+	if (primero==NULL){
+		return NULL;
+	}
+	pnodoPaises aux=primero;
+	while(aux){
+		if (aux->codPais==pais){
+			return aux;
+		}
+		aux = aux->siguiente;
+	}
+	return NULL;
+}
+
+pnodoCiudades listaPaises::buscarCiudad( int pais, int ciudad){
+	if (primero==NULL){
+		return NULL;
+	}
+	pnodoPaises nodoPais = buscarPais(pais);
+	if (nodoPais!=NULL){
+		return nodoPais->ciudades.buscarCiudad(ciudad);
+	}
+	return NULL;
+}
+
+pnodoRest listaPaises::buscarRest(int pais,int ciudad,int rest){
+	if (primero==NULL){
+		return NULL;
+	}
+	pnodoCiudades nodoCiudad = buscarCiudad(pais,ciudad);
+	if (nodoCiudad!=NULL){
+		return nodoCiudad->restaurantes.buscarRest(ciudad);
+	}
+	return NULL;
+}
+
+void listaPaises::insertarCiudad(int pais, int ciudad, string nombre){
+	pnodoPaises nodoPais = buscarPais(pais);
+	nodoPais->ciudades.InsertarFinal(pais,ciudad,nombre);
+}
+
+void listaPaises::insertarRest(int pais, int ciudad,int rest, string nombre){
+	
+	pnodoCiudades nodoCiudad = buscarCiudad(pais,ciudad);
+	
+	if (nodoCiudad!=NULL){
+		nodoCiudad->restaurantes.InsertarFinal(pais, ciudad, rest, nombre);
+	}
+}
+
+void listaPaises::leerPaises(string nombre){
+	
+  	string linea;
+	ifstream archivo(nombre.c_str());
+	
+	lista L1;
+	
+	while (!archivo.eof()) { //Cada line del archivo se mete a una lista simple
+		getline(archivo, linea);
+		L1.InsertarFinal(linea);
+		}
+    pnodo aux= L1.primero; //se crea un nodo en primero de la lista simple
+    
+    while(aux!=NULL){ 
+		bool flag=true;
+    	int temp =aux->valor.length(); //Crea un temp con la cantidad de caracteres que tenga cada linea del nodo
+    	string ciudad = "";
+    	string nombre = "";
+    	string tempNom=aux->valor; //Un temp que tiene la linea
+    	
+//    	cout<<aux->valor.length()<<" = "<<tempNom<<endl;
+    	for (int i = 0; i < temp; i++){ //Se hace un while con un contador mientras sea menor al temp
+    		
+    		if (tempNom[i]!=';'){ //Hasta que no se encuentre un ; va a ingresar los caracteres a la variable ciudad
+    			if (flag==true){
+    				ciudad+=aux->valor[i];}
+				else{
+					nombre+=aux->valor[i];}
+			}
+			else{//Si se encuentra un ;, cambia la bandera a false y se lo salta
+				flag=false;}
+		}
+		
+		if (buscarPais(stoi(ciudad))==NULL){//Se verifica que el numero de pasillo no este ya ingresado en la lista
+			InsertarFinal(stoi(ciudad), nombre);
+		} //Si no se encontraba lo ingresa en la lista
+
+		aux = aux->siguiente;
+		}
+	}
+
+void listaPaises::leerCiudades(string nombre){
+  	string linea;
+	ifstream archivo(nombre.c_str());
+	
+	lista L1;
+	
+	while (!archivo.eof()) {	//Cada linea del archivo de productos se mete a una lista simple
+		getline(archivo, linea);
+		L1.InsertarFinal(linea);
+    }
+    pnodo aux=L1.primero; //se crea un nodo en primero de la lista simple
+    while(aux!=NULL){ 
+		int cont=0; 
+    	int temp =aux->valor.length(); //Crea un temp con la cantidad de caracteres que tenga cada linea del nodo
+    	string pais="";
+    	string ciudad = "";
+    	string nombre = "";
+    	string tempNom=aux->valor;  //Un temp que tiene la linea
+    	for (int i=0; i< temp; i++){ //Se hace un while con un contador mientras sea menor al temp
+    		if (tempNom[i]==';'){ //Cuando se encuentra con un ; aumenta 1 al cont, esto para cambiar a la varibale a la que se le esta
+    			cont++;}		  //agregando los caracteres
+			else{ //Dependiendo del cont se le agrega a una variable o a otra
+				if (cont==0){
+					pais+=aux->valor[i];}
+				if (cont==1){
+					ciudad+=aux->valor[i];}
+    			if (cont==2){
+    				nombre+=aux->valor[i];}
+			}
+		}
+		
+		pnodoPaises nodoPais = buscarPais(stoi(pais));
+		
+		if(nodoPais!=NULL){ //Se verifica que el numero de pasillo se encuentre ingresado en la lista
+			pnodoCiudades nodoCiudad = buscarCiudad(stoi(pais),stoi(ciudad));
+			if (nodoCiudad==NULL){ //Se verifica que el numero de producto no este ya ingresado en la lista
+				insertarCiudad(stoi(pais), stoi(ciudad), nombre);
+			} //Si cumple las condiciones ingresa el prducto
+		}
+		aux= aux->siguiente;}
+	L1.~lista();
+}
+
+void listaPaises::leerRestaurantes(string nombre){
+  	string linea;
+	ifstream archivo(nombre.c_str());
+	
+	lista L1;
+	
+	while (!archivo.eof()) {	//Cada linea del archivo de productos se mete a una lista simple
+		getline(archivo, linea);
+		L1.InsertarFinal(linea);
+    }
+    pnodo aux=L1.primero; //se crea un nodo en primero de la lista simple
+    while(aux!=NULL){ 
+		int cont=0; 
+    	int temp =aux->valor.length(); //Crea un temp con la cantidad de caracteres que tenga cada linea del nodo
+    	string pais="";
+    	string ciudad = "";
+    	string nombre = "";
+    	string rest = "";
+    	string tempNom=aux->valor;  //Un temp que tiene la linea
+    	for (int i=0; i< temp; i++){ //Se hace un while con un contador mientras sea menor al temp
+    		if (tempNom[i]==';'){ //Cuando se encuentra con un ; aumenta 1 al cont, esto para cambiar a la varibale a la que se le esta
+    			cont++;}		  //agregando los caracteres
+			else{ //Dependiendo del cont se le agrega a una variable o a otra
+				if (cont==0){
+					pais+=aux->valor[i];}
+				if (cont==1){
+					ciudad+=aux->valor[i];}
+    			if (cont==2){
+    				rest+=aux->valor[i];}
+    			if (cont==3){
+    				nombre+=aux->valor[i];}
+				
+			}
+		}
+		
+		pnodoPaises nodoPais = buscarPais(stoi(pais));
+		if(nodoPais!=NULL){ //Se verifica que el numero de pasillo se encuentre ingresado en la lista
+			pnodoCiudades nodoCiudad = buscarCiudad(stoi(pais),stoi(ciudad));
+			if (nodoCiudad!=NULL){ //Se verifica que el numero de producto no este ya ingresado en la lista
+				pnodoRest nodoRest = buscarRest(stoi(pais), stoi(ciudad), stoi(rest));
+				if (nodoRest==NULL){
+					insertarRest(stoi(pais), stoi(ciudad), stoi(rest), nombre);
+				}
+			} //Si cumple las condiciones ingresa el prducto
+		}
+		aux= aux->siguiente;}
+	L1.~lista();
+}
+

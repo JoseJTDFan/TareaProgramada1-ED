@@ -4,17 +4,17 @@
 
 
 #include <iostream>
-#include "ListaSimple.h"
-#include "ListaDC.h"
-#include "ListaDoble.h"
+#include "Menu.h"
 
 using namespace std;
 
 int main()
 {
+	Menu programa;
+	
+	programa.lecturaArchivos();
+	programa.menu();
 
-//El lector de archivos esta en ListaDC, te va a causar errores porque hay que cambiar el tipo de nodo porque usa una lista que recibe strings y no ints
-
-   cin.get();
+   
    return 0;
 }
