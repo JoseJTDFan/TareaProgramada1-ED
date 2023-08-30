@@ -29,10 +29,13 @@ class listaCiudades {
     void BorrarInicio();
     void BorrarPosicion(int pos);
     int largoLista();
+    int getPosicion(int codigo);
     
     pnodoCiudades buscarCiudad(int ciudad);
     
    private:
     pnodoCiudades primero;
    
+   friend class Menu;
 };
+

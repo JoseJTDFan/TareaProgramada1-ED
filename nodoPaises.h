@@ -33,6 +33,7 @@ class nodoPaises {
     
         
    friend class listaPaises;
+   friend class Menu;
 };
 typedef nodoPaises *pnodoPaises;
 

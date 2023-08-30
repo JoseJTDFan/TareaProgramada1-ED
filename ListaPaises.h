@@ -32,17 +32,25 @@ class listaPaises {
     void BorrarPosicion(int pos);
     int largoLista();
     bool verificar(int num);
+    int getPosicion(int codigo);
         
     void leerPaises(string nombre);
     void leerCiudades(string nombre);
     void leerRestaurantes(string nombre);
+    void leerMenu(string nombre);
+    void leerProductos(string nombre);
     
     pnodoPaises buscarPais(int pais);
     pnodoCiudades buscarCiudad(int pais, int ciudad);
     pnodoRest buscarRest(int pais, int ciudad, int rest);
+    pnodoMenu buscarMenu(int pais, int ciudad, int rest, int menu);
+    pnodoProductos buscarProd(int pais, int ciudad, int rest, int menu, int prod);
     
     void insertarCiudad(int pais, int ciudad, string nombre);
     void insertarRest(int pais, int ciudad,int rest, string nombre);
+    void insertarMenu(int pais, int ciudad,int rest, int menu, string nombre);
+    void insertarProducto(int pais, int ciudad,int rest, int menu,int prod, string nombre, int kcal, int precio);
+    
 	 
    private:
     pnodoPaises primero;

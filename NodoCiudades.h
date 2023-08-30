@@ -37,6 +37,7 @@ nodoCiudades(int pais, int ciudad, string pnombre, nodoCiudades * signodo)
         
    friend class listaCiudades;
    friend class listaPaises;
+   friend class Menu;
 };
 
 typedef nodoCiudades *pnodoCiudades;

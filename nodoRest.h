@@ -4,6 +4,8 @@
 
 #pragma once
 #include <iostream>
+#include "listaMenu.h"
+
 using namespace std;
 
 class nodoRest {
@@ -34,8 +36,11 @@ class nodoRest {
     string nombre;
     nodoRest *siguiente;
     nodoRest *anterior;
+    listaMenu menus;
     
         
    friend class listaRest;
+   friend class listaPaises;
+   friend class Menu;
 };
 typedef nodoRest *pnodoRest;
