@@ -29,7 +29,7 @@ class listaClientes {
     int buscarPos(int cedula_Parametro);
     pnodoClientes buscarClientes(int cedula_Parametro);
     void leerClientes(string nombre);
-	string buscarCliente(int pos);
+	string atributosCliente(int pos);
 	    
    private:
     pnodoClientes primero;

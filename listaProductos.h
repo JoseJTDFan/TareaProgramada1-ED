@@ -21,6 +21,9 @@ class listaProductos {
     void Mostrar();
     int largoLista();
     int getPosicion(int codigo);
+    string getNombreProducto(int pos);
+    int getKcalProducto(int pos);
+    int getPrecioProducto(int pos);
     
     pnodoProductos buscarProducto(int prod);
     

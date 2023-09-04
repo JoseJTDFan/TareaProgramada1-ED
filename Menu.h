@@ -42,6 +42,7 @@ class Menu {
 		void eliminarProducto();
 		void eliminarClientes();
 		
+		void buscarProducto();
 		void buscarClientes();
 
 	private:
@@ -783,6 +784,101 @@ void Menu::eliminar(){
 	
 }
 /////////////////////////////////////////////////BUSCAR
+void Menu::buscarProducto(){
+	system("cls");
+	cout<<"****************************** BUSCAR PRODUUCTO ******************************"<<endl<<endl;
+	baseDeDatos.Mostrar();
+	cout<<endl<<"Ingrese el codigo del pais que quiere buscar un producto: ";
+	
+	int codPais;
+	cin>>codPais;
+	cout<<endl;
+	
+	pnodoPaises nodoPais = baseDeDatos.buscarPais(codPais);
+	if(nodoPais==NULL){
+		cout<<endl<<"Pais Invalido o No Registrado"<<endl;
+		system("pause");
+		return;
+	}
+	if (nodoPais->ciudades.primero==NULL){
+		cout<<endl<<"No hay ciudades registradas."<<endl;
+		system("pause");
+		return;
+	}
+	system("cls");
+	nodoPais->ciudades.Mostrar();
+	cout<<endl<<"Ingrese el codigo de la ciudad que quiere buscar un producto: ";
+	int codCiudad;
+	cin>>codCiudad;
+	pnodoCiudades nodoCiudad = baseDeDatos.buscarCiudad(codPais, codCiudad);
+	if(nodoCiudad==NULL){
+		cout<<endl<<"Ciudad Invalida o No Registrada"<<endl;
+		system("pause");
+		return;
+	}
+	if (nodoCiudad->restaurantes.primero==NULL){
+		cout<<endl<<"No hay restaurantes registrados."<<endl;
+		system("pause");
+		return;
+	}
+	
+	system("cls");
+	nodoCiudad->restaurantes.Mostrar();
+	cout<<endl<<"Ingrese el codigo del restaurante que quiere buscar un producto: ";
+	int codRest;
+	cin>>codRest;
+	pnodoRest nodoRest = baseDeDatos.buscarRest(codPais, codCiudad,codRest);
+	if(nodoRest==NULL){
+		cout<<endl<<"Restaurante Invalido o No Registrado"<<endl;
+		system("pause");
+		return;
+	}
+		
+	system("cls");
+	nodoRest->menus.Mostrar();
+	cout<<endl<<"Ingrese el codigo del menu que quiere buscar un producto: ";
+	int codMenu;
+	cin>>codMenu;
+	pnodoMenu nodoMenu = baseDeDatos.buscarMenu(codPais, codCiudad,codRest,codMenu);
+	if(nodoMenu==NULL){
+		cout<<endl<<"Menu Invalido o No Registrado"<<endl;
+		system("pause");
+		return;
+	}
+	if (nodoRest->menus.primero==NULL){
+		cout<<endl<<"No hay menus registrados."<<endl;
+		system("pause");
+		return;
+	}
+	
+	
+	system("cls");
+	//nodoMenu->productos.Mostrar();
+	cout<<endl<<"Ingrese el codigo del producto a buscar: ";
+	int codProd;
+	cin>>codProd;
+	
+	
+	pnodoProductos nodoProd = baseDeDatos.buscarProd(codPais,codCiudad,codRest,codMenu,codProd);
+	if (nodoProd!=NULL){
+		int posicion = nodoMenu->productos.getPosicion(codProd);
+		string nombre = nodoMenu->productos.getNombreProducto(posicion);
+		int kcal = nodoMenu->productos.getKcalProducto(posicion);
+		int precio = nodoMenu->productos.getPrecioProducto(posicion);
+		system("cls");
+		//nodoMenu->productos.Mostrar();
+		cout<<endl<<"El nombre del producto es: "<< nombre <<endl;
+		cout<<endl<<"Las calorías del producto son: "<< kcal <<endl;
+		cout<<endl<<"El precio del producto es: "<< precio <<endl;
+		system("pause");
+	}
+	else{
+		cout<<endl<<"Este codigo no se encuentra registrado."<<endl;
+		system("pause");
+		return;
+	}
+}
+
 void Menu::buscarClientes(){
 	system("cls");
 	cout<<"****************************** BUSCAR CLIENTE ******************************"<<endl;
@@ -795,7 +891,7 @@ void Menu::buscarClientes(){
 	pnodoClientes nodoClientes = clientes.buscarClientes(cedula);
 	if (nodoClientes!=NULL){
 		int pos = clientes.buscarPos(cedula);
-		string nombre = clientes.buscarCliente(pos);
+		string nombre = clientes.atributosCliente(pos);
 		//system("cls");
 		cout<<endl<< "El nombre del cliente es: ";
 		cout<< nombre <<endl;
@@ -835,6 +931,7 @@ void Menu::buscar(){
 			case 4:
 				break;
 			case 5:
+				buscarProducto();
 				break;
 			case 6:
 				buscarClientes();

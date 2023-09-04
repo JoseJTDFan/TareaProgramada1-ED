@@ -196,7 +196,103 @@ void listaProductos:: BorrarPosicion(int pos)
       }//else
     }//else
 }
- 
+
+string listaProductos::getNombreProducto(int pos)
+{
+     if(ListaVacia()){
+        cout << "Lista vacia" <<endl;
+     }
+     else
+     {
+        if((pos>largoLista())||(pos<0))//no validas
+		{
+    		cout << "Error en posicion" << endl;
+        }
+        else
+        {
+        if(pos==1){
+           pnodoProductos temp=primero;
+           return primero->nombre;
+    	}
+        else
+          {   
+            int cont=2;
+            pnodoProductos aux=  primero;
+            while(cont<pos)
+            {
+             aux=aux->siguiente;
+             cont++;
+            }
+            pnodoProductos temp=aux->siguiente;
+            return aux->nombre;
+          }//else
+        }//else
+	}
+}
+
+int listaProductos::getKcalProducto(int pos){
+	 if(ListaVacia()){
+	    cout << "Lista vacia" <<endl;
+	 }
+	 else
+	 {
+	    if((pos>largoLista())||(pos<0))//no validas
+		{
+			cout << "Error en posicion" << endl;
+	    }
+	    else
+	    {
+	    if(pos==1){
+	       pnodoProductos temp=primero;
+	       return temp->kcal;
+	   	}
+	    else
+	      {   
+	        int cont=2;
+	        pnodoProductos aux=  primero;
+	        while(cont<pos)
+	        {
+	         aux=aux->siguiente;
+	         cont++;
+	        }
+	        pnodoProductos temp=aux->siguiente;
+	        return temp->kcal;
+	      }//else
+	    }//else
+	}//else
+}
+
+int listaProductos:: getPrecioProducto(int pos){
+     if(ListaVacia()){
+        cout << "Lista vacia" <<endl;
+     }
+     else
+     {
+        if((pos>largoLista())||(pos<0))//no validas
+		{
+    		cout << "Error en posicion" << endl;
+        }
+        else
+        {
+        if(pos==1){
+           pnodoProductos temp=primero;
+           return primero->precio;
+       	}
+        else
+          {   
+            int cont=2;
+            pnodoProductos aux=  primero;
+            while(cont<pos)
+            {
+             aux=aux->siguiente;
+             cont++;
+            }
+            pnodoProductos temp=aux->siguiente;
+            return aux->precio;
+          }//else
+        }//else
+	}
+}
 
 void listaProductos::Mostrar()
 {

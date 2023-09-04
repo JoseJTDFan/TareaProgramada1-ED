@@ -181,7 +181,7 @@ int listaClientes::buscarPos(int cedula_Parametro){
 	return 0;
 }
 
-string listaClientes::buscarCliente(int pos){
+string listaClientes::atributosCliente(int pos){
 	if(ListaVacia()) {
 		cout << "Lista vacia" <<endl;
 	} else {
