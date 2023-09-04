@@ -42,6 +42,7 @@ class Menu {
 		void eliminarProducto();
 		void eliminarClientes();
 		
+		void buscarMenu();
 		void buscarProducto();
 		void buscarClientes();
 
@@ -784,11 +785,11 @@ void Menu::eliminar(){
 	
 }
 /////////////////////////////////////////////////BUSCAR
-void Menu::buscarProducto(){
+void Menu::buscarMenu(){
 	system("cls");
-	cout<<"****************************** BUSCAR PRODUUCTO ******************************"<<endl<<endl;
+	cout<<"****************************** BUSCAR MENU ******************************"<<endl<<endl;
 	baseDeDatos.Mostrar();
-	cout<<endl<<"Ingrese el codigo del pais que quiere buscar un producto: ";
+	cout<<endl<<"Ingrese el codigo del pais en el que quiere buscar un menu: ";
 	
 	int codPais;
 	cin>>codPais;
@@ -807,7 +808,7 @@ void Menu::buscarProducto(){
 	}
 	system("cls");
 	nodoPais->ciudades.Mostrar();
-	cout<<endl<<"Ingrese el codigo de la ciudad que quiere buscar un producto: ";
+	cout<<endl<<"Ingrese el codigo de la ciudad en el que quiere buscar un menu: ";
 	int codCiudad;
 	cin>>codCiudad;
 	pnodoCiudades nodoCiudad = baseDeDatos.buscarCiudad(codPais, codCiudad);
@@ -824,7 +825,80 @@ void Menu::buscarProducto(){
 	
 	system("cls");
 	nodoCiudad->restaurantes.Mostrar();
-	cout<<endl<<"Ingrese el codigo del restaurante que quiere buscar un producto: ";
+	cout<<endl<<"Ingrese el codigo del restaurante en el que quiere buscar un menu: ";
+	int codRest;
+	cin>>codRest;
+	pnodoRest nodoRest = baseDeDatos.buscarRest(codPais, codCiudad,codRest);
+	if(nodoRest==NULL){
+		cout<<endl<<"Restaurante Invalido o No Registrado"<<endl;
+		system("pause");
+		return;
+	}
+	
+	system("cls");
+	//nodoRest->menus.Mostrar();
+	cout<<endl<<"Ingrese el codigo del menu a eliminar: ";
+	int codMenu;
+	cin>>codMenu;
+	
+	
+	pnodoMenu nodoMenu = baseDeDatos.buscarMenu(codPais,codCiudad,codRest,codMenu);
+	if (nodoMenu!=NULL){
+		int posicion = nodoRest->menus.getPosicion(codMenu);
+		string nombre = nodoRest->menus.atributosMenu(posicion);
+		system("cls");
+		//nodoRest->menus.Mostrar();
+		cout<<endl<<"El nombre del menu es: "<<nombre<<endl;
+		system("pause");
+	}
+	else{
+		cout<<endl<<"Este codigo no se encuentra registrado."<<endl;
+		system("pause");
+		return;
+	}
+}
+
+void Menu::buscarProducto(){
+	system("cls");
+	cout<<"****************************** BUSCAR PRODUUCTO ******************************"<<endl<<endl;
+	baseDeDatos.Mostrar();
+	cout<<endl<<"Ingrese el codigo del pais en el que quiere buscar un producto: ";
+	
+	int codPais;
+	cin>>codPais;
+	cout<<endl;
+	
+	pnodoPaises nodoPais = baseDeDatos.buscarPais(codPais);
+	if(nodoPais==NULL){
+		cout<<endl<<"Pais Invalido o No Registrado"<<endl;
+		system("pause");
+		return;
+	}
+	if (nodoPais->ciudades.primero==NULL){
+		cout<<endl<<"No hay ciudades registradas."<<endl;
+		system("pause");
+		return;
+	}
+	system("cls");
+	nodoPais->ciudades.Mostrar();
+	cout<<endl<<"Ingrese el codigo de la ciudad en el que quiere buscar un producto: ";
+	int codCiudad;
+	cin>>codCiudad;
+	pnodoCiudades nodoCiudad = baseDeDatos.buscarCiudad(codPais, codCiudad);
+	if(nodoCiudad==NULL){
+		cout<<endl<<"Ciudad Invalida o No Registrada"<<endl;
+		system("pause");
+		return;
+	}
+	if (nodoCiudad->restaurantes.primero==NULL){
+		cout<<endl<<"No hay restaurantes registrados."<<endl;
+		system("pause");
+		return;
+	}
+	
+	system("cls");
+	nodoCiudad->restaurantes.Mostrar();
+	cout<<endl<<"Ingrese el codigo del restaurante en el que quiere buscar un producto: ";
 	int codRest;
 	cin>>codRest;
 	pnodoRest nodoRest = baseDeDatos.buscarRest(codPais, codCiudad,codRest);
@@ -836,7 +910,7 @@ void Menu::buscarProducto(){
 		
 	system("cls");
 	nodoRest->menus.Mostrar();
-	cout<<endl<<"Ingrese el codigo del menu que quiere buscar un producto: ";
+	cout<<endl<<"Ingrese el codigo del menu en el que quiere buscar un producto: ";
 	int codMenu;
 	cin>>codMenu;
 	pnodoMenu nodoMenu = baseDeDatos.buscarMenu(codPais, codCiudad,codRest,codMenu);
@@ -868,7 +942,7 @@ void Menu::buscarProducto(){
 		system("cls");
 		//nodoMenu->productos.Mostrar();
 		cout<<endl<<"El nombre del producto es: "<< nombre <<endl;
-		cout<<endl<<"Las calorías del producto son: "<< kcal <<endl;
+		cout<<endl<<"Las calorias del producto son: "<< kcal <<endl;
 		cout<<endl<<"El precio del producto es: "<< precio <<endl;
 		system("pause");
 	}
@@ -929,6 +1003,7 @@ void Menu::buscar(){
 			case 3:
 				break;
 			case 4:
+				buscarMenu();
 				break;
 			case 5:
 				buscarProducto();

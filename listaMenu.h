@@ -21,7 +21,7 @@ class listaMenu {
     void Mostrar();
     int largoLista();
     int getPosicion(int codigo);
-    
+    string atributosMenu(int pos);
     pnodoMenu buscarMenu(int menu);
     
    private:

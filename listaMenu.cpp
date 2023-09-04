@@ -197,6 +197,38 @@ void listaMenu:: BorrarPosicion(int pos)
     }//else
 }
  
+string listaMenu:: atributosMenu(int pos){
+     if(ListaVacia())
+     {
+              cout << "Lista vacia" <<endl;
+     }
+     else
+     {
+        if((pos>largoLista())||(pos<0))//no validas
+        {
+        cout << "Error en posicion" << endl;
+        }
+        else
+        {
+        if(pos==1){
+           pnodoMenu aux = primero;
+           return aux->nombre;
+       	}
+        else
+          {   
+            int cont=2;
+            pnodoMenu aux=  primero;
+            while(cont<pos)
+            {
+             aux=aux->siguiente;
+             cont++;
+            }
+            pnodoMenu temp=aux->siguiente;
+			return temp->nombre;
+          }//else
+        }//else
+      }//else
+    }//else
 
 void listaMenu::Mostrar()
 {
