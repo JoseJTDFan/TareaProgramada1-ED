@@ -181,6 +181,35 @@ int listaClientes::buscarPos(int cedula_Parametro){
 	return 0;
 }
 
+string listaClientes::buscarCliente(int pos){
+	if(ListaVacia()) {
+		cout << "Lista vacia" <<endl;
+	} else {
+		if (pos == -1){
+			cout << "Este cliente no está registrado" << endl;
+		} else{
+			if((pos>largoLista())||(pos<0))//no validas
+        	{
+        	cout << "Error en posicion" << endl;
+			} else {
+				if(pos==1) {
+					pnodoClientes temp=primero;
+					return primero->nombreCliente;
+				} else {
+					int cont=2;
+					pnodoClientes aux=  primero;
+					while(cont<pos) {
+						aux=aux->siguiente;
+						cont++;
+					}
+					pnodoClientes temp=aux->siguiente;
+					return aux->nombreCliente;
+				}
+			}
+		}
+	}
+}
+
 void listaClientes::Mostrar() {
 	nodoClientes *aux;
 	if (primero== NULL)

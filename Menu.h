@@ -41,6 +41,8 @@ class Menu {
 		void eliminarMenu();
 		void eliminarProducto();
 		void eliminarClientes();
+		
+		void buscarClientes();
 
 	private:
 		listaPaises baseDeDatos;
@@ -780,8 +782,75 @@ void Menu::eliminar(){
 	}while(bandera);
 	
 }
-//>>>>>>> ff534163c532414660d5c840752eb5a9513927b6
+/////////////////////////////////////////////////BUSCAR
+void Menu::buscarClientes(){
+	system("cls");
+	cout<<"****************************** BUSCAR CLIENTE ******************************"<<endl;
+	//clientes.Mostrar();
+	cout<<endl<<"Ingrese la cedula del cliente a buscar: ";
 	
+	int cedula;
+	cin>>cedula;
+	
+	pnodoClientes nodoClientes = clientes.buscarClientes(cedula);
+	if (nodoClientes!=NULL){
+		int pos = clientes.buscarPos(cedula);
+		string nombre = clientes.buscarCliente(pos);
+		//system("cls");
+		cout<<endl<< "El nombre del cliente es: ";
+		cout<< nombre <<endl;
+		system("pause");
+	}
+	else{
+		cout<<endl<<"Este cliente no se encuentra registrado."<<endl;
+		system("pause");
+	}
+}
+
+void Menu::buscar(){
+	bool bandera=true;
+	do{
+		system("cls");
+		cout<<"****************************** BUSCAR ******************************"<<endl;
+		cout<<endl<<"Ingrese que desea buscar"<<endl<<endl;
+		cout<<"1. Un pais."<<endl;
+		cout<<"2. Una ciudad."<<endl;
+		cout<<"3. Un restaurante."<<endl;
+		cout<<"4. Un menu."<<endl;
+		cout<<"5. Un producto."<<endl;
+		cout<<"6. Un cliente."<<endl;
+		cout<<"7. Salir."<<endl;
+		cout<<endl<<"----> ";
+		int opcion;
+	
+		cin>>opcion;
+		cout<<endl;
+		switch (opcion){
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			case 5:
+				break;
+			case 6:
+				buscarClientes();
+				break;
+			case 7:
+				bandera=false;
+				break;
+			default:
+				cout<<"Ingrese un numero valido"<<endl;
+				system("pause");
+				break;
+			}
+	}while(bandera);
+	
+}
+
 void Menu::menu(){
 	bool bandera=true;
 	do{
@@ -813,7 +882,7 @@ void Menu::menu(){
 			eliminar();
 			break;
 		case 3:
-			menu();
+			buscar();
 			break;
 		case 4:
 			menu();
