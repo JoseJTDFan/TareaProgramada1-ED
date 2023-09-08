@@ -1105,6 +1105,32 @@ void Menu::buscar(){
 	
 }
 
+void Menu::modificarPais(){
+	
+	system("cls");
+	cout<<"****************************** MODIFICAR PAIS ******************************"<<endl;
+	baseDeDatos.Mostrar();
+	cout<<endl<<"Ingrese el codigo del pais a modificar: ";
+	int codPais;
+	cin>>codPais;
+	
+	pnodoPaises nodoPais = baseDeDatos.buscarPais(codPais);
+	if (nodoPais!=NULL){
+		system("cls");
+		string nombre;
+		cout<<endl<<"Ingrese el nuevo nombre: ";
+		cin.ignore();
+		getline(cin,nombre);
+		nodoPais->nombre = nombre;
+		system("cls");
+		baseDeDatos.Mostrar();
+		system("pause");
+	}
+	else{
+		cout<<endl<<"Este codigo no se encuentra registrado."<<endl;
+		system("pause");
+	}
+}
 
 void Menu::modificar(){
 	bool bandera=true;
@@ -1119,7 +1145,7 @@ void Menu::modificar(){
 		cout<<"5. Un producto."<<endl;
 		cout<<"6. Un cliente."<<endl;
 		cout<<"7. Una compra"<<endl;
-		cout<<"7. Salir."<<endl;
+		cout<<"8. Salir."<<endl;
 		cout<<endl<<"----> ";
 		int opcion;
 	
@@ -1127,6 +1153,7 @@ void Menu::modificar(){
 		cout<<endl;
 		switch (opcion){
 			case 1:
+				modificarPais();
 				break;
 			case 2:
 				break;
@@ -1139,6 +1166,8 @@ void Menu::modificar(){
 			case 6:
 				break;
 			case 7:
+				break;
+			case 8:
 				bandera=false;
 				break;
 			default:

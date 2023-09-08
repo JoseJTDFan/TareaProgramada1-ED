@@ -48,6 +48,8 @@ class Menu {
 		void buscarMenu();
 		void buscarProducto();
 		void buscarClientes();
+		
+		void modificarPais();
 
 	private:
 		listaPaises baseDeDatos;
