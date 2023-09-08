@@ -297,11 +297,11 @@ int listaProductos:: getPrecioProducto(int pos){
 void listaProductos::Mostrar()
 {
    pnodoProductos aux;
-   
+   cout<<endl<<"		* PAIS -> CIUDAD -> RESTAURANTE -> MENU -> PRODUCTO -> NOMBRE -> CALORIAS -> PRECIO"<<endl;
    aux = primero;
    while(aux) {
-      cout <<"					*"<<aux->codPais << " -> "<<aux->codCiudad<<" -> "<<aux->codRest<<" -> "<<aux->codMenu<<" -> ";
-      cout<<aux->codProducto<<" ->"<<aux->nombre<<" -> "<<aux->kcal<<" -> "<<aux->precio<<endl;
+      cout <<"		* "<<aux->codPais << " -> "<<aux->codCiudad<<" -> "<<aux->codRest<<" -> "<<aux->codMenu<<" -> ";
+      cout<<aux->codProducto<<" -> "<<aux->nombre<<" -> "<<aux->kcal<<" -> "<<aux->precio<<endl;
       aux = aux->siguiente;
    }
    cout << endl;

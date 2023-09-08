@@ -29,6 +29,7 @@ class nodoClientes { // Constructores
     nodoClientes *siguiente;// Clase Autoreferencia
     
     friend class listaClientes;
+    friend class Menu;
     
    };
 typedef nodoClientes *pnodoClientes; //Alias

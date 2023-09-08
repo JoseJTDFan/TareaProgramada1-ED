@@ -235,8 +235,9 @@ void listaMenu::Mostrar()
    nodoMenu *aux;
    
    aux = primero;
+   cout<<endl<<"		* PAIS -> CIUDAD -> RESTAURANTE -> MENU -> NOMBRE"<<endl;
    while(aux) {
-      cout <<"				*"<<aux->codPais << " -> "<<aux->codCiudad<<" -> "<<aux->codRest<<" -> "<<aux->codMenu<<" -> "<<aux->nombre<<endl;
+      cout <<"		* "<<aux->codPais << " -> "<<aux->codCiudad<<" -> "<<aux->codRest<<" -> "<<aux->codMenu<<" -> "<<aux->nombre<<endl;
 //      aux->productos.Mostrar();
       aux = aux->siguiente;
    }

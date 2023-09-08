@@ -204,9 +204,10 @@ void listaCiudades::Mostrar()
    nodoCiudades *aux;
    
    aux = primero;
+   cout<<endl<<"		* PAIS -> CIUDAD -> NOMBRE"<<endl;
    while(aux) {
    		
-      cout <<"		*"<<aux->codPais << " -> "<<aux->codCiudad<<" -> "<<aux->nombre<<endl;
+      cout <<"		* "<<aux->codPais << " -> "<<aux->codCiudad<<" -> "<<aux->nombre<<endl;
 //      aux->restaurantes.Mostrar();
       aux = aux->siguiente;
    }

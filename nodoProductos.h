@@ -52,6 +52,7 @@ nodoProductos(int pais, int ciudad, int rest, int pmenu,int producto, string pno
         
    friend class listaProductos;
    friend class listaPaises;
+   friend class Menu;
 };
 
 typedef nodoProductos *pnodoProductos;

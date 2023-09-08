@@ -206,8 +206,9 @@ void listaPaises:: BorrarPosicion(int pos)
 void listaPaises::Mostrar()
 {
    pnodoPaises aux=primero;
+   cout<<endl<<"		* PAIS -> NOMBRE"<<endl;
    	while(aux){
-   		cout<<"	* "<<aux->codPais<<" -> "<<aux->nombre<<endl;
+   		cout<<"		* "<<aux->codPais<<" -> "<<aux->nombre<<endl;
 //   		aux->ciudades.Mostrar();
       	aux = aux->siguiente;
 	}       

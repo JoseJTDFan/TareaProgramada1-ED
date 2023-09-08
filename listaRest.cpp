@@ -217,10 +217,11 @@ void listaRest::Mostrar()
 	if (primero==NULL){
 		return;
 	}
+	cout<<endl<<"		* PAIS -> CIUDAD -> RESTAURANTE -> NOMBRE"<<endl;
    pnodoRest aux=primero;
    do
      {     
-      cout <<"			*"<<aux->codPais << " -> "<<aux->codCiudad<<" -> "<<aux->codRest<<" -> "<<aux->nombre<<endl;
+      cout <<"		* "<<aux->codPais << " -> "<<aux->codCiudad<<" -> "<<aux->codRest<<" -> "<<aux->nombre<<endl;
 //      aux->menus.Mostrar();
       aux = aux->siguiente;
      } while(aux!=primero);

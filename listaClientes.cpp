@@ -215,11 +215,10 @@ void listaClientes::Mostrar() {
 	if (primero== NULL)
 		cout << "No hay elementos AQUI";
 	else {
-
-
+		cout<<endl<<"		* CEDULA -> NOMBRE"<<endl;
 		aux = primero;
 		while(aux) {
-			cout<<"	* "<<aux->cedula<<" -> "<<aux->nombreCliente<<endl;
+			cout<<"		* "<<aux->cedula<<" -> "<<aux->nombreCliente<<endl;
 			aux = aux->siguiente;
 		}
 		cout << endl;
