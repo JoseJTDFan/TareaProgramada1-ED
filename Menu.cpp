@@ -1132,32 +1132,6 @@ void Menu::modificarPais(){
 		system("pause");
 	}
 }
-	
-void Menu::modificarCliente(){
-	system("cls");
-	cout<<"****************************** MODIFICAR CLIENTE ******************************"<<endl;
-	clientes.Mostrar();
-	cout<<endl<<"Ingrese la cedula del cliente a modificar: ";
-	int cedula;
-	cin>>cedula;
-	
-	pnodoClientes nodoClientes = clientes.buscarClientes(cedula);
-	if (nodoClientes!=NULL){
-		system("cls");
-		string nombreNuevo;
-		cout<<endl<<"Ingrese el nuevo nombre: ";
-		cin.ignore();
-		getline(cin,nombreNuevo);
-		nodoClientes->nombreCliente = nombreNuevo;
-		system("cls");
-		clientes.Mostrar();
-		system("pause");
-	}
-	else{
-		cout<<endl<<"Este codigo no se encuentra registrado."<<endl;
-		system("pause");
-	}
-}
 
 void Menu::modificarCiudad(){
 	system("cls");
@@ -1260,6 +1234,229 @@ void Menu::modificarRest(){
 	
 }
 
+void Menu::modificarMenu(){
+		system("cls");
+	cout<<"****************************** MODIFICAR MENU ******************************"<<endl<<endl;
+	baseDeDatos.Mostrar();
+	cout<<endl<<"Ingrese el codigo del pais que quiere modificar un menu: ";
+	
+	int codPais;
+	cin>>codPais;
+	cout<<endl;
+	
+	pnodoPaises nodoPais = baseDeDatos.buscarPais(codPais);
+	if(nodoPais==NULL){
+		cout<<endl<<"Pais Invalido o No Registrado"<<endl;
+		system("pause");
+		return;
+	}
+	if (nodoPais->ciudades.primero==NULL){
+		cout<<endl<<"No hay ciudades registradas."<<endl;
+		system("pause");
+		return;
+	}
+	system("cls");
+	nodoPais->ciudades.Mostrar();
+	cout<<endl<<"Ingrese el codigo de la ciudad que quiere modificar un menu: ";
+	int codCiudad;
+	cin>>codCiudad;
+	pnodoCiudades nodoCiudad = baseDeDatos.buscarCiudad(codPais, codCiudad);
+	if(nodoCiudad==NULL){
+		cout<<endl<<"Ciudad Invalida o No Registrada"<<endl;
+		system("pause");
+		return;
+	}
+	system("cls");
+	nodoCiudad->restaurantes.Mostrar();
+	cout<<endl<<"Ingrese el codigo del restaurante que quiere modificar un menu: ";
+	int codRest;
+	cin>>codRest;
+	pnodoRest nodoRest = baseDeDatos.buscarRest(codPais,codCiudad,codRest);
+	if (nodoRest==NULL){
+		cout<<endl<<"Restaurante Invalido o No Registrado"<<endl;
+		system("pause");
+		return;
+	}
+	system("cls");
+	nodoRest->menus.Mostrar();
+	cout<<endl<<"Ingrese el codigo del menu a modificar: ";
+	int codMenu;
+	cin>>codMenu;
+	pnodoMenu nodoMenu = baseDeDatos.buscarMenu(codPais,codCiudad,codRest,codMenu);
+	if (nodoMenu!=NULL){
+		system("cls");
+		string nombreNuevo;
+		cout<<endl<<"Ingrese el nuevo nombre del menu: ";
+		cin.ignore();
+		getline(cin,nombreNuevo);
+		nodoMenu->nombre = nombreNuevo;
+		system("cls");
+		nodoRest->menus.Mostrar();
+		cout<<endl<<"Se ha modificado el menu."<<endl;
+		system("pause");
+	}else{
+		cout<<endl<<"Menu Invalido o No Registrado"<<endl;
+		system("pause");
+		return;
+	}
+	
+}
+
+void Menu::modificarProducto(){
+		system("cls");
+	cout<<"****************************** MODIFICAR PRODUCTO ******************************"<<endl<<endl;
+	baseDeDatos.Mostrar();
+	cout<<endl<<"Ingrese el codigo del pais que quiere modificar un menu: ";
+	
+	int codPais;
+	cin>>codPais;
+	cout<<endl;
+	
+	pnodoPaises nodoPais = baseDeDatos.buscarPais(codPais);
+	if(nodoPais==NULL){
+		cout<<endl<<"Pais Invalido o No Registrado"<<endl;
+		system("pause");
+		return;
+	}
+	if (nodoPais->ciudades.primero==NULL){
+		cout<<endl<<"No hay ciudades registradas."<<endl;
+		system("pause");
+		return;
+	}
+	system("cls");
+	nodoPais->ciudades.Mostrar();
+	cout<<endl<<"Ingrese el codigo de la ciudad que quiere modificar un menu: ";
+	int codCiudad;
+	cin>>codCiudad;
+	pnodoCiudades nodoCiudad = baseDeDatos.buscarCiudad(codPais, codCiudad);
+	if(nodoCiudad==NULL){
+		cout<<endl<<"Ciudad Invalida o No Registrada"<<endl;
+		system("pause");
+		return;
+	}
+	system("cls");
+	nodoCiudad->restaurantes.Mostrar();
+	cout<<endl<<"Ingrese el codigo del restaurante que quiere modificar un menu: ";
+	int codRest;
+	cin>>codRest;
+	pnodoRest nodoRest = baseDeDatos.buscarRest(codPais,codCiudad,codRest);
+	if (nodoRest==NULL){
+		cout<<endl<<"Restaurante Invalido o No Registrado"<<endl;
+		system("pause");
+		return;
+	}
+	system("cls");
+	nodoRest->menus.Mostrar();
+	cout<<endl<<"Ingrese el codigo del menu que quiere modificar un producto: ";
+	int codMenu;
+	cin>>codMenu;
+	pnodoMenu nodoMenu = baseDeDatos.buscarMenu(codPais,codCiudad,codRest,codMenu);
+	if (nodoMenu==NULL){
+		cout<<endl<<"Menu Invalido o No Registrado"<<endl;
+		system("pause");
+		return;
+	}
+	system("cls");
+	nodoMenu->productos.Mostrar();
+	cout<<endl<<"Ingrese el codigo del producto a modificar: ";
+	int codProducto;
+	cin>>codProducto;
+	pnodoProductos nodoProductos = baseDeDatos.buscarProd(codPais, codCiudad, codRest, codMenu, codProducto);
+	if (nodoProductos!=NULL){
+		system("cls");
+		bool bandera=true;
+		do{
+		system("cls");
+		cout<<"****************************** MODIFICAR PRODUCTO ******************************"<<endl;
+		cout<<endl<<"Ingrese que desea modificar"<<endl<<endl;
+		cout<<"1. El nombre."<<endl;
+		cout<<"2. Las calorias."<<endl;
+		cout<<"3. El precio."<<endl;
+		cout<<"4. Salir."<<endl;
+		cout<<endl<<"----> ";
+		int opcion;
+		cin>>opcion;
+		cout<<endl;
+		switch (opcion){
+			case 1:{
+				system("cls");
+				string nombreNuevo;
+				cout<<endl<<"Ingrese el nuevo nombre del producto: ";
+				cin.ignore();
+				getline(cin,nombreNuevo);
+				nodoProductos->nombre = nombreNuevo;
+				system("cls");
+				nodoMenu->productos.Mostrar();
+				cout<<endl<<"Se ha modificado el producto."<<endl;
+				system("pause");
+				break;
+			}
+			case 2:{
+				system("cls");
+				int kcalNuevo;
+				cout<<endl<<"Ingrese las nuevas calorias del producto: ";
+				cin>>kcalNuevo;
+				nodoProductos->kcal = kcalNuevo;
+				system("cls");
+				nodoMenu->productos.Mostrar();
+				cout<<endl<<"Se ha modificado el producto."<<endl;
+				system("pause");
+				break;
+			}
+			case 3:{
+				system("cls");
+				int precioNuevo;
+				cout<<endl<<"Ingrese el nuevo precio del producto: ";
+				cin>>precioNuevo;
+				nodoProductos->precio = precioNuevo;
+				system("cls");
+				nodoMenu->productos.Mostrar();
+				cout<<endl<<"Se ha modificado el producto."<<endl;
+				system("pause");
+				break;
+			}
+			case 4:
+				bandera=false;
+				break;
+			default:
+				cout<<"Ingrese un numero valido"<<endl;
+				system("pause");
+				break;
+			}
+		}while(bandera);
+	}else{
+		cout<<endl<<"Producto Invalido o No Registrado"<<endl;
+		system("pause");
+		return;
+	}
+}
+
+void Menu::modificarCliente(){
+	system("cls");
+	cout<<"****************************** MODIFICAR CLIENTE ******************************"<<endl;
+	clientes.Mostrar();
+	cout<<endl<<"Ingrese la cedula del cliente a modificar: ";
+	int cedula;
+	cin>>cedula;
+	
+	pnodoClientes nodoClientes = clientes.buscarClientes(cedula);
+	if (nodoClientes!=NULL){
+		system("cls");
+		string nombreNuevo;
+		cout<<endl<<"Ingrese el nuevo nombre: ";
+		cin.ignore();
+		getline(cin,nombreNuevo);
+		nodoClientes->nombreCliente = nombreNuevo;
+		system("cls");
+		clientes.Mostrar();
+		system("pause");
+	}
+	else{
+		cout<<endl<<"Este codigo no se encuentra registrado."<<endl;
+		system("pause");
+	}
+}
+
 void Menu::modificar(){
 	bool bandera=true;
 	do{
@@ -1290,8 +1487,10 @@ void Menu::modificar(){
 				modificarRest();
 				break;
 			case 4:
+				modificarMenu();
 				break;
 			case 5:
+				modificarProducto();
 				break;
 			case 6:
 				modificarCliente();

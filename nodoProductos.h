@@ -48,7 +48,6 @@ nodoProductos(int pais, int ciudad, int rest, int pmenu,int producto, string pno
 	    int precio;
 	    nodoProductos *siguiente;
 	    nodoProductos *anterior;
-    
         
    friend class listaProductos;
    friend class listaPaises;

@@ -19,6 +19,7 @@ using namespace std;
 
 class Menu {
 	public:
+		//Menu
 		void lecturaArchivos();
 		void menu();
 		void insertar();
@@ -27,14 +28,15 @@ class Menu {
 		void modificar();
 		void reportes();
 		
+		//Insertar
 		void insertarPais();
 		void insertarCiudad();
 		void insertarRest();
 		void insertarMenu();
 		void insertarProducto();
 		void insertarClientes();
-
 		
+		//Eliminar
 		void eliminarPais();
 		void eliminarCiudad();
 		void eliminarRest();
@@ -42,6 +44,7 @@ class Menu {
 		void eliminarProducto();
 		void eliminarClientes();
 		
+		//Buscar
 		void buscarPais();
 		void buscarCiudad();
 		void buscarRest();
@@ -49,13 +52,13 @@ class Menu {
 		void buscarProducto();
 		void buscarClientes();
 		
+		//Modificar
 		void modificarPais();
-<<<<<<< HEAD
-		void modificarCliente();
-=======
 		void modificarCiudad();
 		void modificarRest();
->>>>>>> 06b322573aaa4deb2c91d55f331a19e2c6c2456b
+		void modificarMenu();
+		void modificarProducto();
+		void modificarCliente();
 
 	private:
 		listaPaises baseDeDatos;
