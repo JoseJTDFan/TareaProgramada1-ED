@@ -1118,6 +1118,7 @@ void Menu::modificar(){
 		cout<<"4. Un menu."<<endl;
 		cout<<"5. Un producto."<<endl;
 		cout<<"6. Un cliente."<<endl;
+		cout<<"7. Una compra"<<endl;
 		cout<<"7. Salir."<<endl;
 		cout<<endl<<"----> ";
 		int opcion;
