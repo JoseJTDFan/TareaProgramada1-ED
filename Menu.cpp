@@ -1131,6 +1131,32 @@ void Menu::modificarPais(){
 		system("pause");
 	}
 }
+	
+void Menu::modificarCliente(){
+	system("cls");
+	cout<<"****************************** MODIFICAR CLIENTE ******************************"<<endl;
+	clientes.Mostrar();
+	cout<<endl<<"Ingrese la cedula del cliente a modificar: ";
+	int cedula;
+	cin>>cedula;
+	
+	pnodoClientes nodoClientes = clientes.buscarClientes(cedula);
+	if (nodoClientes!=NULL){
+		system("cls");
+		string nombreNuevo;
+		cout<<endl<<"Ingrese el nuevo nombre: ";
+		cin.ignore();
+		getline(cin,nombreNuevo);
+		nodoClientes->nombreCliente = nombreNuevo;
+		system("cls");
+		clientes.Mostrar();
+		system("pause");
+	}
+	else{
+		cout<<endl<<"Este codigo no se encuentra registrado."<<endl;
+		system("pause");
+	}
+}
 
 void Menu::modificar(){
 	bool bandera=true;
@@ -1164,6 +1190,7 @@ void Menu::modificar(){
 			case 5:
 				break;
 			case 6:
+				modificarCliente();
 				break;
 			case 7:
 				break;
