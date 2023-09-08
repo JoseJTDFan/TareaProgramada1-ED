@@ -50,7 +50,12 @@ class Menu {
 		void buscarClientes();
 		
 		void modificarPais();
+<<<<<<< HEAD
 		void modificarCliente();
+=======
+		void modificarCiudad();
+		void modificarRest();
+>>>>>>> 06b322573aaa4deb2c91d55f331a19e2c6c2456b
 
 	private:
 		listaPaises baseDeDatos;
