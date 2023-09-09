@@ -9,6 +9,7 @@
 #include "ListaPaises.h"
 #include "listaRest.h"
 #include "listaClientes.h"
+#include "cola.h"
 #include <cstdlib>
 #include <string.h>
 
@@ -27,6 +28,7 @@ class Menu {
 		void buscar();
 		void modificar();
 		void reportes();
+		void comprar();
 		
 		//Insertar
 		void insertarPais();
@@ -35,7 +37,7 @@ class Menu {
 		void insertarMenu();
 		void insertarProducto();
 		void insertarClientes();
-		
+
 		//Eliminar
 		void eliminarPais();
 		void eliminarCiudad();
@@ -59,9 +61,14 @@ class Menu {
 		void modificarMenu();
 		void modificarProducto();
 		void modificarCliente();
+		void modificarCompra();
+		
+		//Extra
+		bool desicion(bool bandera);
 
 	private:
 		listaPaises baseDeDatos;
 		listaClientes clientes; //lista de clientes
+		cola colaClientes;
 };
 

@@ -13,12 +13,14 @@ class listaProductos {
     
     void InsertarInicio(int pais, int ciudad, int rest, int pmenu,int producto, string pnombre,int calorias, int precio);
     void InsertarFinal(int pais, int ciudad, int rest, int pmenu,int producto, string pnombre,int calorias, int precio);
+    void InsertarFinal(int pais, int ciudad, int rest, int pmenu,int producto, string pnombre,int calorias, int precio, int pcantidad);
     void InsertarPos (int pais, int ciudad, int rest, int pmenu,int producto, string pnombre,int calorias, int precio, int pos);
     bool ListaVacia() { return primero == NULL; } 
     void BorrarFinal();
     void BorrarInicio();
     void BorrarPosicion(int pos);
     void Mostrar();
+    void MostrarCompra();
     int largoLista();
     int getPosicion(int codigo);
     string getNombreProducto(int pos);

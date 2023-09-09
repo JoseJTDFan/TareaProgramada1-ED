@@ -4,6 +4,7 @@
 
 #pragma once
 #include <iostream>
+#include "listaProductos.h"
 using namespace std;
 
 class nodoClientes { // Constructores
@@ -27,9 +28,11 @@ class nodoClientes { // Constructores
     int cedula;
     string nombreCliente;
     nodoClientes *siguiente;// Clase Autoreferencia
+    listaProductos productos;
     
     friend class listaClientes;
     friend class Menu;
+    friend class cola;
     
    };
 typedef nodoClientes *pnodoClientes; //Alias

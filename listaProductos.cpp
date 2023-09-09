@@ -71,10 +71,24 @@ void listaProductos::InsertarFinal(int pais, int ciudad, int rest, int pmenu,int
         aux->siguiente->anterior=aux;       
       }    
 }
-//Otra forma cambia las ultimas dos instrucciones
-//pnodoProductos nuevo= new nodoProductos(v);
-//nuevo->anterior=aux;
-//aux->siguiente=nuevo;
+
+
+void listaProductos::InsertarFinal(int pais, int ciudad, int rest, int pmenu,int producto, string pnombre,int calorias, int precio, int pcantidad)
+{
+   if (ListaVacia())
+   {
+   
+     primero = new nodoProductos(pais,ciudad, rest, pmenu, producto, pnombre, calorias, precio, pcantidad);
+       
+   }
+   else
+     { pnodoProductos aux = primero;
+        while ( aux->siguiente != NULL)
+          aux= aux->siguiente;
+        aux->siguiente=new nodoProductos(pais,ciudad, rest, pmenu, producto, pnombre, calorias, precio, pcantidad);
+        aux->siguiente->anterior=aux;       
+      }    
+}
 
 
 void listaProductos::InsertarPos(int pais, int ciudad, int rest, int pmenu,int producto, string pnombre,int calorias, int precio, int pos)
@@ -302,6 +316,19 @@ void listaProductos::Mostrar()
    while(aux) {
       cout <<"		* "<<aux->codPais << " -> "<<aux->codCiudad<<" -> "<<aux->codRest<<" -> "<<aux->codMenu<<" -> ";
       cout<<aux->codProducto<<" -> "<<aux->nombre<<" -> "<<aux->kcal<<" -> "<<aux->precio<<endl;
+      aux = aux->siguiente;
+   }
+   cout << endl;
+}
+
+void listaProductos::MostrarCompra()
+{
+   pnodoProductos aux;
+   cout<<endl<<"		* PAIS -> CIUDAD -> RESTAURANTE -> MENU -> PRODUCTO -> NOMBRE -> CALORIAS -> PRECIO -> CANTIDAD"<<endl;
+   aux = primero;
+   while(aux) {
+      cout <<"		* "<<aux->codPais << " -> "<<aux->codCiudad<<" -> "<<aux->codRest<<" -> "<<aux->codMenu<<" -> ";
+      cout<<aux->codProducto<<" -> "<<aux->nombre<<" -> "<<aux->kcal<<" -> "<<aux->precio<<" -> "<<aux->cantidad<<endl;
       aux = aux->siguiente;
    }
    cout << endl;
