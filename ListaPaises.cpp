@@ -213,7 +213,21 @@ void listaPaises::Mostrar()
       	aux = aux->siguiente;
 	}       
      cout<<endl;
-}   
+}  
+
+string listaPaises::DevolverReporte()
+{
+   pnodoPaises aux=primero;
+   string reporte = "		* PAIS -> NOMBRE\n";
+   	while(aux){
+   		reporte=reporte+"		* "+to_string(aux->codPais)+" -> "+aux->nombre+"\n";
+      	aux = aux->siguiente;
+	}       
+     cout<<endl;
+    return reporte;
+}  
+
+
 
 pnodoPaises listaPaises::buscarPais(int pais){
 	if (primero==NULL){
@@ -304,6 +318,60 @@ void listaPaises::insertarProducto(int pais, int ciudad,int rest, int menu,int p
 		nodoMenu->productos.InsertarFinal(pais, ciudad, rest, menu, prod,nombre, kcal, precio);
 	}
 	
+}
+
+
+string listaPaises::RestMasBuscado(){
+	listaRest MasBuscados;
+	pnodoPaises aux=primero;
+   	while(aux){
+		pnodoCiudades auxCiudad = aux->ciudades.primero;
+		if (aux->ciudades.primero==NULL){
+			aux = aux->siguiente;
+			continue;
+		}
+		while(auxCiudad) {
+				if (auxCiudad->restaurantes.primero==NULL){
+					auxCiudad = auxCiudad->siguiente;
+					continue;
+				}
+		   		pnodoRest auxRest=auxCiudad->restaurantes.primero;
+		   		do{     
+		   			if(MasBuscados.primero==NULL){
+		   				MasBuscados.InsertarFinal(auxRest->codPais, auxRest->codCiudad,auxRest->codRest,auxRest->nombre,auxRest->cantBusquedas);
+					   }
+					   
+					else{
+						if (auxRest->cantBusquedas>MasBuscados.primero->cantBusquedas){
+			     			MasBuscados.~listaRest();
+			     			MasBuscados.InsertarFinal(auxRest->codPais, auxRest->codCiudad,auxRest->codRest,auxRest->nombre,auxRest->cantBusquedas);
+						 }
+						 else{
+						 	if(auxRest->cantBusquedas==MasBuscados.primero->cantBusquedas){
+								MasBuscados.InsertarFinal(auxRest->codPais, auxRest->codCiudad,auxRest->codRest,auxRest->nombre,auxRest->cantBusquedas);
+							}
+						 	
+						 }
+					}
+		     		auxRest = auxRest->siguiente;
+		    	} while(auxRest!=auxCiudad->restaurantes.primero);
+		    auxCiudad = auxCiudad->siguiente;
+		   }
+      	aux = aux->siguiente;
+	}  
+	string reporte;    
+	if(MasBuscados.primero->cantBusquedas==0){
+		reporte="		* RESTAURANTE(S) MAS BUSCADOS\n		* PAIS -> CIUDAD -> RESTAURANTE -> NOMBRE -> CANTIDAD DE BUSQUEDAS\n";
+		pnodoRest auxReporte = MasBuscados.primero;
+		do{     
+			reporte=reporte+"		* "+to_string(auxReporte->codPais)+ " -> "+to_string(auxReporte->codCiudad)+" -> "+to_string(auxReporte->codRest)+" -> "+auxReporte->nombre+" -> "+to_string(auxReporte->cantBusquedas)+"\n";
+	  		auxReporte = auxReporte->siguiente;
+		} while(auxReporte!=MasBuscados.primero);
+		return reporte;
+	}
+	else{
+		reporte="No se ha buscado ningun restaurante";
+	}
 }
 
 void listaPaises::leerPaises(string nombre){

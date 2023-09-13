@@ -25,6 +25,7 @@ class listaCiudades {
     bool ListaVacia() { return primero == NULL; } 
     void Imprimir();
     void Mostrar();
+    string DevolverReporte();
     void BorrarFinal();
     void BorrarInicio();
     void BorrarPosicion(int pos);
@@ -37,5 +38,6 @@ class listaCiudades {
     pnodoCiudades primero;
    
    friend class Menu;
+   friend class listaPaises;
 };
 

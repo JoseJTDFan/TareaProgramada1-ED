@@ -21,6 +21,7 @@ class listaRest {
     
     void InsertarInicio(int pais, int ciudad, int rest, string pnombre);
     void InsertarFinal(int pais, int ciudad, int rest, string pnombre);
+    void InsertarFinal(int pais, int ciudad, int rest, string pnombre, int cant);
     void InsertarPos (int pais, int ciudad, int rest, string pnombre, int pos);
     bool ListaVacia() { return primero == NULL; } 
     void Imprimir();
@@ -31,6 +32,7 @@ class listaRest {
     void BorrarPosicion(int pos);
     int largoLista();
     int getPosicion(int codigo);
+    string DevolverReporte();
     
     pnodoRest buscarRest(int rest);
     
@@ -38,4 +40,5 @@ class listaRest {
     pnodoRest primero;
    
    friend class Menu;
+   friend class listaPaises;
 };

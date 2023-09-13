@@ -4,8 +4,6 @@
 
 #include <iostream>
 #include "ListaSimple.h"
-#include "ListaDC.h"
-#include "ListaDoble.h"
 #include "ListaPaises.h"
 #include "listaRest.h"
 #include "listaClientes.h"
@@ -63,8 +61,17 @@ class Menu {
 		void modificarCliente();
 		void modificarCompra();
 		
+		//Reportes
+		void reportarPais();
+		void reportarCiudad();
+		void reportarRest();
+		void reportarCliente();
+		void reportarRestMasBuscado();
+		void reportarPrecio();
+		
 		//Extra
 		bool desicion(bool bandera);
+		void guardarEnArchivo(string nombreArchivo, string texto);
 
 	private:
 		listaPaises baseDeDatos;

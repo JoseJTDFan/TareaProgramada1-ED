@@ -216,6 +216,22 @@ void listaCiudades::Mostrar()
    
 }
 
+string listaCiudades::DevolverReporte()
+{
+   nodoCiudades *aux;
+   string reporte="		* PAIS -> CIUDAD -> NOMBRE\n";
+   aux = primero;
+   while(aux) {
+   		
+      reporte=reporte+"		* "+to_string(aux->codPais) + " -> "+to_string(aux->codCiudad)+" -> "+aux->nombre+"\n";
+//      aux->restaurantes.Mostrar();
+      aux = aux->siguiente;
+   }
+   cout << endl;
+   
+   return reporte;
+}
+
 pnodoCiudades listaCiudades::buscarCiudad(int ciudad){
 	if (primero==NULL){
 		return NULL;

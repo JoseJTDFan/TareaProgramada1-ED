@@ -86,6 +86,25 @@ void listaRest::InsertarFinal(int pais, int ciudad, int rest, string pnombre)
     }    
 }
 
+void listaRest::InsertarFinal(int pais, int ciudad, int rest, string pnombre, int cant)
+{
+   if (ListaVacia())
+     {
+     primero = new nodoRest( pais, ciudad, rest, pnombre, cant);
+     primero->anterior=primero;
+     primero->siguiente=primero;
+   }  
+   else
+   { 
+     pnodoRest nuevo = new nodoRest( pais, ciudad, rest, pnombre, cant);//1
+     nuevo->anterior = primero->anterior;//2
+     /*nuevo->siguiente=primero->anterior->siguiente;opcion para intruccion 3*/
+	 nuevo->siguiente=primero;// coloca alguna de la dos 3
+     primero->anterior->siguiente=nuevo;//4
+     primero->anterior=nuevo;//5
+    }    
+}
+
 
 void listaRest::InsertarPos(int pais, int ciudad, int rest, string pnombre,int pos)
 {
@@ -226,6 +245,25 @@ void listaRest::Mostrar()
       aux = aux->siguiente;
      } while(aux!=primero);
 }   
+
+string listaRest::DevolverReporte()
+{
+	if (primero==NULL){
+		return "";
+	}
+	
+	
+	string reporte="		* PAIS -> CIUDAD -> RESTAURANTE -> NOMBRE\n";
+   pnodoRest aux=primero;
+   do
+     {     
+      reporte=reporte+"		* "+to_string(aux->codPais)+ " -> "+to_string(aux->codCiudad)+" -> "+to_string(aux->codRest)+" -> "+aux->nombre+"\n";
+//      aux->menus.Mostrar();
+      aux = aux->siguiente;
+     } while(aux!=primero);
+    
+    return reporte;
+}  
 
 pnodoRest listaRest::buscarRest(int rest){
 	if (primero==NULL){

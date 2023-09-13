@@ -842,11 +842,13 @@ void Menu::buscarRest(){
 	pnodoRest nodoRest = baseDeDatos.buscarRest(codPais,codCiudad,codRest);
 	if (nodoRest!=NULL){
 		system("cls");
+		nodoRest->cantBusquedas=nodoRest->cantBusquedas+1;
 		cout<<endl<<"		* El codigo de pais del restaurante es: "<< nodoRest->codPais <<endl;
 		cout<<endl<<"		* El codigo de ciudad del restaurante es: "<< nodoRest->codCiudad <<endl;
 		cout<<endl<<"		* El codigo del restaurante es: "<< nodoRest->codRest <<endl;
 		cout<<endl<<"		* El nombre del restaurante es: "<< nodoRest->nombre <<endl<<endl;
 		system("pause");
+		
 	}
 	else{
 		cout<<endl<<"Este codigo no se encuentra registrado."<<endl;
@@ -1464,7 +1466,7 @@ void Menu::modificarCompra(){
 	cout<<endl<<"Ingrese su numero de cedula: ";
 	int cedula;
 	cin>>cedula;
-	
+	 
 	pnodoClientes nodoClientes = clientes.buscarClientes(cedula);
 	
 	if(colaClientes.buscar(cedula)==false){
@@ -1675,6 +1677,254 @@ void Menu::modificar(){
 	}while(bandera);	
 }
 
+void Menu::guardarEnArchivo(string nombreArchivo, string texto){
+	ofstream archivo(nombreArchivo);
+
+    if (!archivo.is_open()) {
+        cerr << "No se pudo abrir el archivo: " << nombreArchivo << endl;
+        return;
+    }
+
+    archivo << texto;
+
+    archivo.close();
+
+    cout << "Reporte realizado en el archivo: " << nombreArchivo << endl;
+    system("pause");
+}
+
+
+void Menu::reportarPais(){
+	system("cls");
+	cout<<"****************************** REPORTE DE PAISES ******************************"<<endl<<endl;
+	guardarEnArchivo("Lista de Paises.txt", baseDeDatos.DevolverReporte());
+}
+
+void Menu::reportarCiudad(){
+	system("cls");
+	cout<<"****************************** REPORTE DE CIUDADES ******************************"<<endl<<endl;
+	
+	baseDeDatos.Mostrar();
+	cout<<endl<<"Ingrese el codigo del pais que ver sus ciudades: ";
+	
+	int codPais;
+	cin>>codPais;
+	cout<<endl;
+	
+	pnodoPaises nodoPais = baseDeDatos.buscarPais(codPais);
+	if(nodoPais==NULL){
+		cout<<endl<<"Pais Invalido o No Registrado"<<endl;
+		system("pause");
+		return;
+	}
+	
+	if(nodoPais->ciudades.primero==NULL){
+		cout<<endl<<"No hay ciudades para reportar"<<endl;
+		system("pause");
+		return;
+	}
+	
+	guardarEnArchivo("Lista de Ciudades en "+nodoPais->nombre+".txt", nodoPais->ciudades.DevolverReporte());
+}
+
+void Menu::reportarRest(){
+	system("cls");
+	cout<<"****************************** REPORTE DE RESTAURANTES ******************************"<<endl<<endl;
+	baseDeDatos.Mostrar();
+	cout<<endl<<"Ingrese el codigo del pais que ver los restaurantes de una ciudad: ";
+	
+	int codPais;
+	cin>>codPais;
+	cout<<endl;
+	
+	pnodoPaises nodoPais = baseDeDatos.buscarPais(codPais);
+	if(nodoPais==NULL){
+		cout<<endl<<"Pais Invalido o No Registrado"<<endl;
+		system("pause");
+		return;
+	}
+	if (nodoPais->ciudades.primero==NULL){
+		cout<<endl<<"No hay ciudades registradas."<<endl;
+		system("pause");
+		return;
+	}
+	system("cls");
+	cout<<"****************************** REPORTE DE RESTAURANTES ******************************"<<endl<<endl;
+	nodoPais->ciudades.Mostrar();
+	cout<<endl<<"Ingrese el codigo de la ciudad que quiere ver sus restaurantes: ";
+	int codCiudad;
+	cin>>codCiudad;
+	pnodoCiudades nodoCiudad = baseDeDatos.buscarCiudad(codPais, codCiudad);
+	if(nodoCiudad==NULL){
+		cout<<endl<<"Ciudad Invalida o No Registrada"<<endl;
+		system("pause");
+		return;
+	}
+	
+	if(nodoCiudad->restaurantes.primero==NULL){
+		cout<<endl<<"No hay restaurantes para reportar"<<endl;
+		system("pause");
+		return;
+	}
+	
+	guardarEnArchivo("Lista de Restaurantes en "+nodoCiudad->nombre+", "+nodoPais->nombre+".txt", nodoCiudad->restaurantes.DevolverReporte());
+}
+
+void Menu::reportarCliente(){
+	system("cls");
+	cout<<"****************************** REPORTE DE CLIENTES ******************************"<<endl<<endl;
+	guardarEnArchivo("Lista de Clientes.txt", clientes.DevolverReporte());
+}
+
+void Menu::reportarRestMasBuscado(){
+	system("cls");
+	cout<<"****************************** RESTAURANTE MAS BUSCADO ******************************"<<endl<<endl;
+	guardarEnArchivo("Restaurante Mas Buscado.txt", baseDeDatos.RestMasBuscado());
+}
+
+void Menu::reportarPrecio(){
+	system("cls");
+	system("cls");
+	cout<<"****************************** REPORTE DE PRECIO ******************************"<<endl<<endl;
+	baseDeDatos.Mostrar();
+	cout<<endl<<"Ingrese el codigo del pais en el que quiere buscar el precio de un producto: ";
+	
+	int codPais;
+	cin>>codPais;
+	cout<<endl;
+	
+	pnodoPaises nodoPais = baseDeDatos.buscarPais(codPais);
+	if(nodoPais==NULL){
+		cout<<endl<<"Pais Invalido o No Registrado"<<endl;
+		system("pause");
+		return;
+	}
+	if (nodoPais->ciudades.primero==NULL){
+		cout<<endl<<"No hay ciudades registradas."<<endl;
+		system("pause");
+		return;
+	}
+	system("cls");
+	nodoPais->ciudades.Mostrar();
+	cout<<endl<<"Ingrese el codigo de la ciudad en el que quiere buscar el precio de un producto: ";
+	int codCiudad;
+	cin>>codCiudad;
+	pnodoCiudades nodoCiudad = baseDeDatos.buscarCiudad(codPais, codCiudad);
+	if(nodoCiudad==NULL){
+		cout<<endl<<"Ciudad Invalida o No Registrada"<<endl;
+		system("pause");
+		return;
+	}
+	if (nodoCiudad->restaurantes.primero==NULL){
+		cout<<endl<<"No hay restaurantes registrados."<<endl;
+		system("pause");
+		return;
+	}
+	
+	system("cls");
+	nodoCiudad->restaurantes.Mostrar();
+	cout<<endl<<"Ingrese el codigo del restaurante en el que quiere buscar el precio de un producto: ";
+	int codRest;
+	cin>>codRest;
+	pnodoRest nodoRest = baseDeDatos.buscarRest(codPais, codCiudad,codRest);
+	if(nodoRest==NULL){
+		cout<<endl<<"Restaurante Invalido o No Registrado"<<endl;
+		system("pause");
+		return;
+	}
+		
+	system("cls");
+	nodoRest->menus.Mostrar();
+	cout<<endl<<"Ingrese el codigo del menu en el que quiere buscar el precio de un producto: ";
+	int codMenu;
+	cin>>codMenu;
+	pnodoMenu nodoMenu = baseDeDatos.buscarMenu(codPais, codCiudad,codRest,codMenu);
+	if(nodoMenu==NULL){
+		cout<<endl<<"Menu Invalido o No Registrado"<<endl;
+		system("pause");
+		return;
+	}
+	if (nodoRest->menus.primero==NULL){
+		cout<<endl<<"No hay menus registrados."<<endl;
+		system("pause");
+		return;
+	}
+	
+	
+	system("cls");
+	nodoMenu->productos.MostrarReportePrecio();
+	cout<<endl<<"Ingrese el codigo del producto a consultar precio: ";
+	int codProd;
+	cin>>codProd;
+	
+	
+	pnodoProductos nodoProd = baseDeDatos.buscarProd(codPais,codCiudad,codRest,codMenu,codProd);
+	if (nodoProd!=NULL){
+		guardarEnArchivo("Precio de un producto.txt", "El precio de "+nodoProd->nombre+" es: "+to_string(nodoProd->precio)+" colones.");
+	}
+	else{
+		cout<<endl<<"Este codigo no se encuentra registrado."<<endl;
+		system("pause");
+		return;
+	}
+}
+
+void Menu::reportes(){
+	bool bandera=true;
+	do{
+		system("cls");
+		cout<<"****************************** REPORTAR ******************************"<<endl;
+		cout<<endl<<"Ingrese que desea reportar"<<endl<<endl;
+		cout<<"1. Lista de todos los paises."<<endl;
+		cout<<"2. Ciudades de un pais."<<endl;
+		cout<<"3. Restaurantes de un pais y ciudad especifica."<<endl;
+		cout<<"4. Lista de clientes."<<endl;
+		cout<<"5. Restaurante mas buscado."<<endl;
+		cout<<"6. Menu mas buscado."<<endl;
+		cout<<"7. Producto mas comprado."<<endl;
+		cout<<"8. Consultar el precio de un producto."<<endl;
+		cout<<"9. Salir."<<endl;
+		cout<<endl<<"----> ";
+		int opcion;
+	
+		cin>>opcion;
+		cout<<endl;
+		switch (opcion){
+			case 1:
+				reportarPais();
+				break;
+			case 2:
+				reportarCiudad();
+				break;
+			case 3:
+				reportarRest();
+				break;
+			case 4:
+				reportarCliente();
+				break;
+			case 5:
+				reportarRestMasBuscado();
+				break;
+			case 6:
+				modificarCliente();
+				break;
+			case 7:
+				modificarCompra();
+				break;
+			case 8:
+				reportarPrecio();
+				break;
+			case 9:
+				bandera=false;
+				break;
+			default:
+				cout<<"Ingrese un numero valido"<<endl;
+				system("pause");
+				break;
+			}
+	}while(bandera);	
+}
+
 bool Menu::desicion(bool bandera){
 	bool bandera2=true;
 	do{
@@ -1811,22 +2061,8 @@ void Menu::comprar(){
 			
 			pnodoProductos nodoProd = baseDeDatos.buscarProd(codPais,codCiudad,codRest,codMenu,codProd);
 			if (nodoProd!=NULL){
-				int cantidad;/*
-				do{
-					cout<<endl<<"¿Desea comprar "<<nodoProd->nombre<<"?"<<endl;
-					cout<<"1.Si"<<endl;
-					cout<<"2.No"<<endl;
-					switch (opcion){
-					case 1:
-						break;
-					case 2:
-						bandera = desicion(bandera);
-						continue;
-						break;
-					default:
-						cout<<"Ingrese un numero valido"<<endl;
-						system("pause");
-						break;*/
+				int cantidad;
+
 				cout<<endl<<"¿Cuantas unidades desea comprar de "<<nodoProd->nombre<<"?: ";
 				cin>>cantidad;
 				nodoClientes->productos.InsertarFinal(codPais,codCiudad,codRest,codMenu,codProd,nodoProd->nombre,nodoProd->kcal,nodoProd->precio,cantidad);
@@ -1896,7 +2132,7 @@ void Menu::menu(){
 			modificar();
 			break;
 		case 5:
-			menu();
+			reportes();
 			break;
 		case 6:
 			comprar();

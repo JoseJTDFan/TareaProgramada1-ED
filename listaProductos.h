@@ -20,6 +20,7 @@ class listaProductos {
     void BorrarInicio();
     void BorrarPosicion(int pos);
     void Mostrar();
+    void MostrarReportePrecio();
     void MostrarCompra();
     int largoLista();
     int getPosicion(int codigo);

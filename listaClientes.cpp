@@ -225,6 +225,23 @@ void listaClientes::Mostrar() {
 	}
 }
 
+string listaClientes::DevolverReporte() {
+	nodoClientes *aux;
+	string reporte;
+	if (primero== NULL)
+		reporte= "No hay elementos AQUI";
+	else {
+		reporte="		* CEDULA -> NOMBRE\n";
+		aux = primero;
+		while(aux) {
+			reporte=reporte+"		* "+to_string(aux->cedula)+" -> "+aux->nombreCliente+"\n";
+			aux = aux->siguiente;
+		}
+		cout << endl;
+	}
+	return reporte;
+}
+
 pnodoClientes listaClientes::buscarClientes(int cedula_parametro){
 	if (primero==NULL){
 		return NULL;

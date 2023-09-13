@@ -18,6 +18,7 @@ class nodoRest {
 	    nombre = pnombre;
        	siguiente = NULL;
        	anterior =NULL;
+       	cantBusquedas=0;
     }
 
    nodoRest(int pais, int ciudad, int rest, string pnombre, nodoRest * signodo)
@@ -27,6 +28,17 @@ class nodoRest {
 	    codRest = rest;
 	    nombre = pnombre;
        siguiente = signodo;
+       cantBusquedas=0;
+    }
+    nodoRest(int pais, int ciudad, int rest, string pnombre, int pcantidadBusqueda)
+    {
+        codPais = pais;
+	    codCiudad= ciudad;
+	    codRest = rest;
+	    nombre = pnombre;
+       	siguiente = NULL;
+       	anterior =NULL;
+       	cantBusquedas=pcantidadBusqueda;
     }
 
  private:
@@ -37,6 +49,7 @@ class nodoRest {
     nodoRest *siguiente;
     nodoRest *anterior;
     listaMenu menus;
+    int cantBusquedas;
     
         
    friend class listaRest;

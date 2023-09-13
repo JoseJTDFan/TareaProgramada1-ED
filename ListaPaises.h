@@ -33,6 +33,7 @@ class listaPaises {
     int largoLista();
     bool verificar(int num);
     int getPosicion(int codigo);
+    string DevolverReporte();
         
     void leerPaises(string nombre);
     void leerCiudades(string nombre);
@@ -50,6 +51,8 @@ class listaPaises {
     void insertarRest(int pais, int ciudad,int rest, string nombre);
     void insertarMenu(int pais, int ciudad,int rest, int menu, string nombre);
     void insertarProducto(int pais, int ciudad,int rest, int menu,int prod, string nombre, int kcal, int precio);
+    
+    string RestMasBuscado();
     
 	 
    private:
