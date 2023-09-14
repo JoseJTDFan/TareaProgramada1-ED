@@ -9,7 +9,7 @@
 4567;234;879;Tortilla Heaven
 12;34;237;Mariscos Bocas
 51;234;2346;Sushi Sabor
-51;234;2347;Cafetería Aroma
+51;234;2347;Cafeteria Aroma
 123;345;38;La Parrilla
 345;987;460;Cocina Magica
 4567;234;880;Burgers & Beyond

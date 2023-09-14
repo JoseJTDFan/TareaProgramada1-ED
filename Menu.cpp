@@ -1464,6 +1464,12 @@ void Menu::modificarCompra(){
 	system("cls");
 	cout<<"****************************** MODIFICAR COMPRA ******************************"<<endl;
 	
+	if(colaClientes.ColaVacia()){
+		cout<<endl<<"No hay clientes en la cola."<<endl;
+		system("pause");
+		return;
+	}
+	
 	cout<<endl<<"Ingrese su numero de cedula: ";
 	int cedula;
 	cin>>cedula;
@@ -1632,6 +1638,11 @@ void Menu::modificarCompra(){
 				system("pause");
 		}
 	}while(bandera==true);	
+	if (nodoClientes->productos.ListaVacia()){
+		int posicion;
+		posicion= colaClientes.getPosicion(nodoClientes->cedula);
+		colaClientes.eliminarPorPosicion(posicion);
+	}
 }
 
 void Menu::modificar(){

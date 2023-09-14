@@ -24,9 +24,10 @@ public:
 
     bool ColaVacia() { return fondo < frente; }
     bool ColaLlena() { return fondo == 4;}
-	
+	int getPosicion(int cedula);
     void insertar(pnodoClientes cliente);
     void eliminar();
     void imprimir();
     bool buscar(int cedula);
+    void eliminarPorPosicion(int posicion);
 };

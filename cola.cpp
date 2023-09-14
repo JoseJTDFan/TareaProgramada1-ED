@@ -51,3 +51,30 @@ bool cola::buscar(int cedula) {
 	}
     return false;
 }
+
+int cola::getPosicion(int cedula) {
+	
+	if (ColaVacia()){
+		return -1;
+	}
+	for (int i = frente; i <= fondo; i++) {
+        if (Cola[i] != NULL && Cola[i]->cedula == cedula) {
+            return i;
+        }
+	}
+    return -1;
+}
+
+void cola::eliminarPorPosicion(int posicion) {
+    if (posicion < frente || posicion > fondo || ColaVacia()) {
+        cout << "La posicion especificada no es válida o la cola esta vacía." << endl;
+        return;
+    }
+
+    for (int i = posicion; i < fondo; i++) {
+        Cola[i] = Cola[i + 1];
+    }
+
+    Cola[fondo] = nullptr; // Eliminar el último elemento
+    fondo--;
+}

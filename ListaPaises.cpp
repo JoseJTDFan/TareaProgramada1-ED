@@ -405,7 +405,6 @@ string listaPaises::MenuMasBuscado(){
 					   
 					else{
 						
-						cout<<auxMenu->cantBusquedas<<" - "<<MasBuscados.primero->cantBusquedas<<endl;
 						if (auxMenu->cantBusquedas>MasBuscados.primero->cantBusquedas){
 						 	MasBuscados.~listaMenu();
 			     			MasBuscados.InsertarFinal(auxMenu->codPais, auxMenu->codCiudad,auxMenu->codRest,auxMenu->codMenu,auxMenu->nombre,auxMenu->cantBusquedas);
