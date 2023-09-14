@@ -360,7 +360,7 @@ string listaPaises::RestMasBuscado(){
     aux = aux->siguiente;
 	}  
 	string reporte;    
-	if(MasBuscados.primero->cantBusquedas==0){
+	if(MasBuscados.primero->cantBusquedas!=0){
 		reporte="		* RESTAURANTE(S) MAS BUSCADOS\n		* PAIS -> CIUDAD -> RESTAURANTE -> NOMBRE -> CANTIDAD DE BUSQUEDAS\n";
 		pnodoRest auxReporte = MasBuscados.primero;
 		do{     
@@ -378,67 +378,60 @@ string listaPaises::MenuMasBuscado(){
 	listaMenu MasBuscados;
 	pnodoPaises aux=primero;
    	while(aux){
-   		cout<<"hola"<<endl;
 		pnodoCiudades auxCiudad = aux->ciudades.primero;
 		if (aux->ciudades.primero==NULL){
 			aux = aux->siguiente;
 			continue;
 		}
 		while(auxCiudad) {
-			cout<<"hola2"<<endl;
 			pnodoRest auxRest=auxCiudad->restaurantes.primero;
 			if (auxCiudad->restaurantes.primero==NULL){
 				auxCiudad = auxCiudad->siguiente;
 				continue;
 			}
-	   		while(auxRest){
-	   			cout<<"hola3"<<endl;
+	   		do{ 
 	   			if (auxRest->menus.primero==NULL){
 	   				auxRest = auxRest ->siguiente;
 	   				continue;
 				}
-				cout<<"HUH"<<endl;
 				pnodoMenu auxMenu=auxRest->menus.primero;
-		   		do{    
+		   		while(auxMenu){
+//				   cout<<"viendo"<<endl;
+//				   cout<<auxMenu->codPais<<auxMenu->codCiudad<<auxMenu->codRest<<auxMenu->codMenu<<auxMenu->nombre<<auxMenu->cantBusquedas<<endl;
 		   			if(MasBuscados.primero==NULL){
-		   				cout<<"WENO"<<endl;
+//		   				cout<<auxMenu->cantBusquedas<<" - "<<MasBuscados.primero->cantBusquedas<<endl;
 		   				MasBuscados.InsertarFinal(auxMenu->codPais, auxMenu->codCiudad,auxMenu->codRest,auxMenu->codMenu,auxMenu->nombre,auxMenu->cantBusquedas);
 					}
 					   
 					else{
-						cout<<"Sirve"<<endl; 
+						
+						cout<<auxMenu->cantBusquedas<<" - "<<MasBuscados.primero->cantBusquedas<<endl;
 						if (auxMenu->cantBusquedas>MasBuscados.primero->cantBusquedas){
-			     			cout<<"Sirve2";
 						 	MasBuscados.~listaMenu();
 			     			MasBuscados.InsertarFinal(auxMenu->codPais, auxMenu->codCiudad,auxMenu->codRest,auxMenu->codMenu,auxMenu->nombre,auxMenu->cantBusquedas);
 						}
-						else{
-							cout<<"Sirve3"<<endl; 
+						else{ 
 						 	if(auxMenu->cantBusquedas==MasBuscados.primero->cantBusquedas){
 								MasBuscados.InsertarFinal(auxMenu->codPais, auxMenu->codCiudad,auxMenu->codRest,auxMenu->codMenu,auxMenu->nombre,auxMenu->cantBusquedas);
 							}	
 						}
 					}
-				cout<<"WHYYY"<<endl;
 				auxMenu = auxMenu->siguiente;
-			    }while(auxMenu!=auxRest->menus.primero);
-			    	cout<<"hola4"<<endl;
-					auxRest = auxRest->siguiente;
-			}
+			    }
+				auxRest = auxRest->siguiente;
+			} while(auxRest!=auxCiudad->restaurantes.primero);
       	auxCiudad = auxCiudad->siguiente;
 		} 
-	cout<<"WHY"<<endl;
 	aux = aux->siguiente; 
 	}
 	string reporte;  
-	cout<<"whiles"<<endl;  
-	if(MasBuscados.primero->cantBusquedas==0){
+	if(MasBuscados.primero->cantBusquedas!=0){
 		reporte="		* MENU(S) MAS BUSCADOS\n		* PAIS -> CIUDAD -> RESTAURANTE -> MENU -> NOMBRE -> CANTIDAD DE BUSQUEDAS\n";
 		pnodoMenu auxReporte = MasBuscados.primero;
-		do{     
+		while (auxReporte)   {
 			reporte=reporte+"		* "+to_string(auxReporte->codPais)+ " -> "+to_string(auxReporte->codCiudad)+" -> "+to_string(auxReporte->codRest)+" -> "+to_string(auxReporte->codMenu)+" -> "+auxReporte->nombre+" -> "+to_string(auxReporte->cantBusquedas)+"\n";
 	  		auxReporte = auxReporte->siguiente;
-		} while(auxReporte!=MasBuscados.primero);
+		}
 		return reporte;
 	}
 	else{

@@ -16,18 +16,19 @@ class nodoMenu {
 	    codRest = rest;
 	    codMenu = pmenu;
 	    nombre = pnombre;
+	    cantBusquedas = 0;
        	siguiente = NULL;
        	anterior =NULL;
     }
     
-    nodoMenu(int pais, int ciudad, int rest, int pmenu, string pnombre, int cantBusquedas)
+    nodoMenu(int pais, int ciudad, int rest, int pmenu, string pnombre, int pcantBusquedas)
     {
         codPais = pais;
 	    codCiudad= ciudad;
 	    codRest = rest;
 	    codMenu = pmenu;
 	    nombre = pnombre;
-	    cantBusquedas = 0;
+	    cantBusquedas = pcantBusquedas;
        	siguiente = NULL;
        	anterior =NULL;
     }
@@ -39,6 +40,7 @@ class nodoMenu {
 	    codRest = rest;
 	    codMenu = pmenu;
 	    nombre = pnombre;
+	    cantBusquedas = 0;
        	siguiente = NULL;
        	anterior =NULL;
        siguiente = signodo;
