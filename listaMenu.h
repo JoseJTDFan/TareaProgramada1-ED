@@ -13,6 +13,7 @@ class listaMenu {
     
     void InsertarInicio(int pais, int ciudad, int rest, int pmenu, string pnombre);
     void InsertarFinal(int pais, int ciudad, int rest, int pmenu, string pnombre);
+    void InsertarFinal(int pais, int ciudad, int rest, int pmenu, string pnombre, int cant);
     void InsertarPos (int pais, int ciudad, int rest, int pmenu, string pnombre, int pos);
     bool ListaVacia() { return primero == NULL; } 
     void BorrarFinal();
@@ -28,4 +29,5 @@ class listaMenu {
     pnodoMenu primero;
   
   friend class Menu;
+  friend class listaPaises;
 };

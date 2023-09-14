@@ -19,6 +19,18 @@ class nodoMenu {
        	siguiente = NULL;
        	anterior =NULL;
     }
+    
+    nodoMenu(int pais, int ciudad, int rest, int pmenu, string pnombre, int cantBusquedas)
+    {
+        codPais = pais;
+	    codCiudad= ciudad;
+	    codRest = rest;
+	    codMenu = pmenu;
+	    nombre = pnombre;
+	    cantBusquedas = 0;
+       	siguiente = NULL;
+       	anterior =NULL;
+    }
 
     nodoMenu(int pais, int ciudad, int rest, int pmenu, string pnombre ,nodoMenu * signodo)
     {
@@ -38,6 +50,7 @@ class nodoMenu {
 	    int codRest;
 	    int codMenu;
 	    string nombre;
+	    int cantBusquedas;
 	    nodoMenu *siguiente;
 	    nodoMenu *anterior;
 	    listaProductos productos;

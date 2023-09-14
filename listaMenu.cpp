@@ -71,6 +71,23 @@ void listaMenu::InsertarFinal(int pais, int ciudad, int rest, int pmenu, string 
         aux->siguiente->anterior=aux;       
       }    
 }
+
+void listaMenu::InsertarFinal(int pais, int ciudad, int rest, int pmenu, string pnombre, int cant)
+{
+   if (ListaVacia())
+   {
+   
+     primero = new nodoMenu(pais, ciudad, rest, pmenu, pnombre,cant);
+       
+   }
+   else
+     { pnodoMenu aux = primero;
+        while ( aux->siguiente != NULL)
+          aux= aux->siguiente;
+        aux->siguiente=new nodoMenu(pais, ciudad, rest, pmenu, pnombre,cant);
+        aux->siguiente->anterior=aux;       
+      }    
+}
 //Otra forma cambia las ultimas dos instrucciones
 //pnodoMenu nuevo= new nodoMenu(v);
 //nuevo->anterior=aux;

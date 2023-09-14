@@ -53,7 +53,7 @@ class listaPaises {
     void insertarProducto(int pais, int ciudad,int rest, int menu,int prod, string nombre, int kcal, int precio);
     
     string RestMasBuscado();
-    
+    string MenuMasBuscado();
 	 
    private:
     pnodoPaises primero;

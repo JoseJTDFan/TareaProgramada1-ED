@@ -921,6 +921,7 @@ void Menu::buscarMenu(){
 		string nombre = nodoRest->menus.atributosMenu(posicion);
 		system("cls");
 		//nodoRest->menus.Mostrar();
+		nodoMenu->cantBusquedas=nodoMenu->cantBusquedas+1;
 		cout<<endl<<"		* El codigo de pais del menu es: "<< nodoMenu->codPais <<endl;
 		cout<<endl<<"		* El codigo de ciudad del menu es: "<< nodoMenu->codCiudad <<endl;
 		cout<<endl<<"		* El codigo de restaurante del menu es: "<< nodoMenu->codRest <<endl;
@@ -1782,6 +1783,12 @@ void Menu::reportarRestMasBuscado(){
 	guardarEnArchivo("Restaurante Mas Buscado.txt", baseDeDatos.RestMasBuscado());
 }
 
+void Menu::reportarMenuMasBuscado(){
+	system("cls");
+	cout<<"****************************** MENU MAS BUSCADO ******************************"<<endl<<endl;
+	guardarEnArchivo("Menu Mas Buscado.txt", baseDeDatos.MenuMasBuscado());
+}
+
 void Menu::reportarPrecio(){
 	system("cls");
 	system("cls");
@@ -1906,7 +1913,7 @@ void Menu::reportes(){
 				reportarRestMasBuscado();
 				break;
 			case 6:
-				modificarCliente();
+				reportarMenuMasBuscado();
 				break;
 			case 7:
 				modificarCompra();
