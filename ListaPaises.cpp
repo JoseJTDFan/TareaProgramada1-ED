@@ -439,6 +439,75 @@ string listaPaises::MenuMasBuscado(){
 	}
 }
 
+string listaPaises::ProductoMasComprado(){
+	listaProductos MasBuscados;
+	pnodoPaises aux=primero;
+   	while(aux){
+		pnodoCiudades auxCiudad = aux->ciudades.primero;
+		if (aux->ciudades.primero==NULL){
+			aux = aux->siguiente;
+			continue;
+		}
+		while(auxCiudad) {
+			pnodoRest auxRest=auxCiudad->restaurantes.primero;
+			if (auxCiudad->restaurantes.primero==NULL){
+				auxCiudad = auxCiudad->siguiente;
+				continue;
+			}
+	   		do{ 
+	   			if (auxRest->menus.primero==NULL){
+	   				auxRest = auxRest ->siguiente;
+	   				continue;
+				}
+				pnodoMenu auxMenu=auxRest->menus.primero;
+		   		while(auxMenu){
+		   			pnodoProductos auxProd = auxMenu->productos.primero;
+		   			if (auxMenu->productos.primero==NULL){
+						auxMenu = auxMenu->siguiente;
+						continue;
+					}
+					while(auxProd){
+						if(MasBuscados.primero==NULL){
+		   					MasBuscados.InsertarFinal(auxProd->codPais, auxProd->codCiudad,auxProd->codRest,auxProd->codMenu,auxProd->codProducto,auxProd->kcal,auxProd->nombre,auxProd->precio, auxProd->cantCompra);
+						}
+						   
+						else{
+							
+							if (auxProd->cantCompra>MasBuscados.primero->cantCompra){
+							 	MasBuscados.~listaProductos();
+				     			MasBuscados.InsertarFinal(auxProd->codPais, auxProd->codCiudad,auxProd->codRest,auxProd->codMenu,auxProd->codProducto,auxProd->kcal,auxProd->nombre,auxProd->precio, auxProd->cantCompra);
+							}
+							else{ 
+							 	if(auxProd->cantCompra==MasBuscados.primero->cantCompra){
+									MasBuscados.InsertarFinal(auxProd->codPais, auxProd->codCiudad,auxProd->codRest,auxProd->codMenu,auxProd->codProducto,auxProd->kcal,auxProd->nombre,auxProd->precio, auxProd->cantCompra);
+								}	
+							}
+						}
+						auxProd = auxProd->siguiente;
+					}	
+				auxMenu = auxMenu->siguiente;
+			    }
+				auxRest = auxRest->siguiente;
+			} while(auxRest!=auxCiudad->restaurantes.primero);
+      	auxCiudad = auxCiudad->siguiente;
+		} 
+	aux = aux->siguiente; 
+	}
+	string reporte;  
+	if(MasBuscados.primero->cantCompra!=0){
+		reporte="		* PRODUCTO(S) MAS COMPRADOR\n		* PAIS -> CIUDAD -> RESTAURANTE -> MENU -> PRODUCTO -> NOMBRE -> CALORIAS -> PRECIO -> CANTIDAD DE COMPRAS\n";
+		pnodoProductos auxReporte = MasBuscados.primero;
+		while (auxReporte)   {
+			reporte=reporte+"		* "+to_string(auxReporte->codPais)+ " -> "+to_string(auxReporte->codCiudad)+" -> "+to_string(auxReporte->codRest)+" -> "+to_string(auxReporte->codMenu)+" -> "+to_string(auxReporte->codProducto)+" -> "+auxReporte->nombre+" -> "+to_string(auxReporte->kcal)+" -> "+to_string(auxReporte->precio)+" -> "+to_string(auxReporte->cantCompra)+"\n";
+	  		auxReporte = auxReporte->siguiente;
+		}
+		return reporte;
+	}
+	else{
+		reporte="No se ha comprado ningun producto.";
+	}
+}
+
 void listaPaises::leerPaises(string nombre){
 	
   	string linea;

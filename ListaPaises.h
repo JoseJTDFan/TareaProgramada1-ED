@@ -54,6 +54,7 @@ class listaPaises {
     
     string RestMasBuscado();
     string MenuMasBuscado();
+    string ProductoMasComprado();
 	 
    private:
     pnodoPaises primero;

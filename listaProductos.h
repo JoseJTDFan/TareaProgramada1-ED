@@ -14,6 +14,7 @@ class listaProductos {
     void InsertarInicio(int pais, int ciudad, int rest, int pmenu,int producto, string pnombre,int calorias, int precio);
     void InsertarFinal(int pais, int ciudad, int rest, int pmenu,int producto, string pnombre,int calorias, int precio);
     void InsertarFinal(int pais, int ciudad, int rest, int pmenu,int producto, string pnombre,int calorias, int precio, int pcantidad);
+    void InsertarFinal(int pais, int ciudad, int rest, int pmenu,int producto, int calorias, string pnombre, int precio, int pcantCompra);
     void InsertarPos (int pais, int ciudad, int rest, int pmenu,int producto, string pnombre,int calorias, int precio, int pos);
     bool ListaVacia() { return primero == NULL; } 
     void BorrarFinal();
@@ -33,4 +34,5 @@ class listaProductos {
    private:
     pnodoProductos primero;
   
+  friend class listaPaises;
 };

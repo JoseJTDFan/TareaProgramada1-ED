@@ -68,6 +68,7 @@ class Menu {
 		void reportarCliente();
 		void reportarRestMasBuscado();
 		void reportarMenuMasBuscado();
+		void reportarProductoMasComprado();
 		void reportarPrecio();
 		
 		//Extra

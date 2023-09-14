@@ -19,6 +19,7 @@ class nodoProductos {
 	    kcal = calorias;
 	    precio = pprecio;
 	    cantidad = 1;
+	    cantCompra=0;
        	siguiente = NULL;
        	anterior =NULL;
     }
@@ -34,6 +35,7 @@ nodoProductos(int pais, int ciudad, int rest, int pmenu,int producto, string pno
 	    kcal = calorias;
 	    precio = pprecio;
 	    cantidad = 1;
+	    cantCompra=0;
        	siguiente = NULL;
        	anterior =NULL;
        siguiente = signodo;
@@ -50,6 +52,23 @@ nodoProductos(int pais, int ciudad, int rest, int pmenu,int producto, string pno
 	    kcal = calorias;
 	    precio = pprecio;
 	    cantidad = pcantidad;
+	    cantCompra=0;
+       	siguiente = NULL;
+       	anterior =NULL;
+    }
+
+nodoProductos(int pais, int ciudad, int rest, int pmenu,int producto, int calorias, string pnombre, int pprecio, int pcantCompra)
+    {
+        codPais = pais;
+	    codCiudad= ciudad;
+	    codRest = rest;
+	    codMenu = pmenu;
+	    codProducto =producto;
+	    nombre = pnombre;
+	    kcal = calorias;
+	    precio = pprecio;
+	    cantidad = 0;
+	    cantCompra=pcantCompra;
        	siguiente = NULL;
        	anterior =NULL;
     }
@@ -64,6 +83,7 @@ nodoProductos(int pais, int ciudad, int rest, int pmenu,int producto, string pno
 	    int kcal;
 	    int precio;
 	    int cantidad;
+	    int cantCompra;
 	    nodoProductos *siguiente;
 	    nodoProductos *anterior;
         

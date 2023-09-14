@@ -1510,6 +1510,13 @@ void Menu::modificarCompra(){
 				cout<<endl<<"Que producto desea modificar? (Ingrese Codigo de Producto): ";
 				cin>>prodCambio;
 				
+				pnodoProductos nodoProdC;
+				nodoProdC = nodoClientes->productos.buscarProducto(prodCambio);
+				pnodoProductos nodoProdTemp;
+				nodoProdTemp = baseDeDatos.buscarProd(nodoProdC->codPais,nodoProdC->codCiudad,nodoProdC->codRest,nodoProdC->codMenu,nodoProdC->codProducto);
+				
+				nodoProdTemp->cantCompra = nodoProdTemp->cantCompra-nodoProdC->cantidad;
+				
 				nodoClientes->productos.BorrarPosicion(nodoClientes->productos.getPosicion(prodCambio));
 				
 				bool bandera2;
@@ -1604,6 +1611,7 @@ void Menu::modificarCompra(){
 						int cantidad;
 						cout<<endl<<"¿Cuantas unidades desea comprar de "<<nodoProd->nombre<<"?: ";
 						cin>>cantidad;
+						nodoProd->cantCompra = nodoProd->cantCompra+cantidad;
 						nodoClientes->productos.InsertarFinal(codPais,codCiudad,codRest,codMenu,codProd,nodoProd->nombre,nodoProd->kcal,nodoProd->precio,cantidad);
 						system("cls");
 						nodoClientes->productos.MostrarCompra();
@@ -1789,6 +1797,12 @@ void Menu::reportarMenuMasBuscado(){
 	guardarEnArchivo("Menu Mas Buscado.txt", baseDeDatos.MenuMasBuscado());
 }
 
+void Menu::reportarProductoMasComprado(){
+	system("cls");
+	cout<<"****************************** PRODUCTO MAS COMPRADO ******************************"<<endl<<endl;
+	guardarEnArchivo("Producto Mas Comprado.txt", baseDeDatos.ProductoMasComprado());
+}
+
 void Menu::reportarPrecio(){
 	system("cls");
 	system("cls");
@@ -1916,7 +1930,7 @@ void Menu::reportes(){
 				reportarMenuMasBuscado();
 				break;
 			case 7:
-				modificarCompra();
+				reportarProductoMasComprado();
 				break;
 			case 8:
 				reportarPrecio();
@@ -2072,6 +2086,7 @@ void Menu::comprar(){
 
 				cout<<endl<<"¿Cuantas unidades desea comprar de "<<nodoProd->nombre<<"?: ";
 				cin>>cantidad;
+				nodoProd->cantCompra = nodoProd->cantCompra+cantidad;
 				nodoClientes->productos.InsertarFinal(codPais,codCiudad,codRest,codMenu,codProd,nodoProd->nombre,nodoProd->kcal,nodoProd->precio,cantidad);
 				system("cls");
 				nodoClientes->productos.MostrarCompra();

@@ -90,6 +90,23 @@ void listaProductos::InsertarFinal(int pais, int ciudad, int rest, int pmenu,int
       }    
 }
 
+void listaProductos::InsertarFinal(int pais, int ciudad, int rest, int pmenu,int producto, int calorias, string pnombre, int precio, int pcantCompra)
+{
+   if (ListaVacia())
+   {
+   
+     primero = new nodoProductos(pais,ciudad, rest, pmenu, producto, calorias, pnombre, precio, pcantCompra);
+       
+   }
+   else
+     { pnodoProductos aux = primero;
+        while ( aux->siguiente != NULL)
+          aux= aux->siguiente;
+        aux->siguiente=new nodoProductos(pais,ciudad, rest, pmenu, producto, calorias, pnombre, precio, pcantCompra);
+        aux->siguiente->anterior=aux;       
+      }    
+}
+
 
 void listaProductos::InsertarPos(int pais, int ciudad, int rest, int pmenu,int producto, string pnombre,int calorias, int precio, int pos)
 {
